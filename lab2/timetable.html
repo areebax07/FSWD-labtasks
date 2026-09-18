@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class Timetable</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f8eee7;
+            color: #4b2922;
+            font-family: Arial, sans-serif;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1450px;
+            margin: auto;
+        }
+
+        .heading {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .heading h1 {
+            font-family: Georgia, serif;
+            font-size: 52px;
+            font-weight: 500;
+            color: #633a2d;
+            letter-spacing: 1px;
+        }
+
+        .heading p {
+            margin-top: 12px;
+            color: #915148;
+            font-size: 17px;
+            letter-spacing: 5px;
+        }
+
+        .table-box {
+            background: #fffaf6;
+            padding: 12px;
+            border-radius: 18px;
+            box-shadow: 0 8px 25px rgba(99, 58, 45, 0.12);
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            min-width: 1100px;
+            border-collapse: separate;
+            border-spacing: 6px;
+        }
+
+        th {
+            height: 75px;
+            padding: 10px 7px;
+            background: #d99091;
+            color: #fffaf7;
+            border-radius: 10px;
+            font-size: 13px;
+            line-height: 1.5;
+            white-space: nowrap;
+        }
+
+        th:first-child {
+            background: #754535;
+            font-family: Georgia, serif;
+            font-size: 19px;
+        }
+
+        td {
+            height: 135px;
+            padding: 12px 8px;
+            text-align: center;
+            vertical-align: middle;
+            background: #f4e5da;
+            border-radius: 10px;
+        }
+
+        .day {
+            width: 115px;
+            background: #d99091;
+            color: #4b2922;
+            font-family: Georgia, serif;
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        .lab {
+            background: #e9bdb6;
+        }
+
+        .teacher {
+            display: block;
+            font-size: 10px;
+            line-height: 1.3;
+            color: #79564c;
+            margin-bottom: 8px;
+        }
+
+        .subject {
+            display: block;
+            font-size: 14px;
+            font-weight: bold;
+            line-height: 1.35;
+            color: #4b2922;
+            margin-bottom: 8px;
+        }
+
+        .room {
+            display: block;
+            font-size: 11px;
+            line-height: 1.3;
+            color: #79564c;
+        }
+
+        .empty {
+            color: #b39d93;
+            font-size: 20px;
+        }
+
+        @media (max-width: 800px) {
+            body {
+                padding: 25px 10px;
+            }
+
+            .heading h1 {
+                font-size: 40px;
+            }
+
+            .heading p {
+                font-size: 13px;
+                letter-spacing: 3px;
+            }
+
+            .table-box {
+                padding: 8px;
+            }
+
+            table {
+                min-width: 1100px;
+            }
+        }
+
+        @media (max-width: 500px) {
+            body {
+                padding: 20px 6px;
+            }
+
+            .heading {
+                margin-bottom: 22px;
+            }
+
+            .heading h1 {
+                font-size: 32px;
+            }
+
+            .heading p {
+                font-size: 11px;
+                letter-spacing: 2px;
+            }
+
+            table {
+                min-width: 1100px;
+            }
+
+            td {
+                height: 120px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="heading">
+            <h1>Class Timetable</h1>
+            <p>BSCS - V - B &nbsp; | &nbsp; SHIFT - I</p>
+        </div>
+
+        <div class="table-box">
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>DAY</th>
+                        <th>08:00 AM<br>09:00 AM</th>
+                        <th>09:00 AM<br>10:00 AM</th>
+                        <th>10:00 AM<br>11:00 AM</th>
+                        <th>11:00 AM<br>12:00 PM</th>
+                        <th>12:00 PM<br>01:00 PM</th>
+                        <th>01:00 PM<br>02:00 PM</th>
+                        <th>02:00 PM<br>03:00 PM</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <tr>
+                        <td class="day">Mon</td>
+
+                        <td class="empty">—</td>
+
+                        <td>
+                            <span class="teacher">CS-Mr Hafiz Obiad Ullah Khan</span>
+                            <span class="subject">Full Stack Web Development</span>
+                            <span class="room">C-205 (Shift-I)</span>
+                        </td>
+
+                        <td>
+                            <span class="teacher">Maths-Dr Waqas Sarwar Abbasi</span>
+                            <span class="subject">Linear Algebra</span>
+                            <span class="room">C-301 (Shift-I)</span>
+                        </td>
+
+                        <td class="lab" colspan="3">
+                            <span class="teacher">CS-Ms Kanwal Ejaz</span>
+                            <span class="subject">Artificial Intelligence Lab</span>
+                            <span class="room">Lab 5 A Block (Shift-I)</span>
+                        </td>
+
+                        <td>
+                            <span class="teacher">CS-Ms Warda Aslam</span>
+                            <span class="subject">Operating Systems</span>
+                            <span class="room">C-301 (Shift-I)</span>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="day">Tue</td>
+
+                        <td>
+                            <span class="teacher">CS-Ms Warda Aslam</span>
+                            <span class="subject">Operating Systems</span>
+                            <span class="room">C-206 (Shift-I)</span>
+                        </td>
+
+                        <td>
+                            <span class="teacher">CS-Mr Hafiz Obiad Ullah Khan</span>
+                            <span class="subject">Full Stack Web Development</span>
+                            <span class="room">C-301 (Shift-I)</span>
+                        </td>
+
+                        <td>
+                            <span class="teacher">AUSOM-Ms Ayesha Munir-VFM</span>
+                            <span class="subject">Introduction to Management</span>
+                            <span class="room">C-206 (Shift-I)</span>
+                        </td>
+
+                        <td class="empty">—</td>
+
+                        <td class="empty">—</td>
+
+                        <td>
+                            <span class="teacher">Maths-Dr Waqas Sarwar Abbasi</span>
+                            <span class="subject">Linear Algebra</span>
+                            <span class="room">C-205 (Shift-I)</span>
+                        </td>
+
+                        <td>
+                            <span class="teacher">CS-Ms Kanwal Ejaz</span>
+                            <span class="subject">Advisory Class</span>
+                            <span class="room">C-201 (Shift-I)</span>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="day">Wed</td>
+
+                        <td class="empty">—</td>
+
+                        <td colspan="2">
+                            <span class="teacher">
+                                CS-Dr Mehdi Hassan /<br>
+                                CS-Mr Muhammad Junaid Nazar
+                            </span>
+                            <span class="subject">Design and Analysis of Algorithms</span>
+                            <span class="room">Lecture Hall 01</span>
+                        </td>
+
+                        <td class="empty">—</td>
+
+                        <td class="empty">—</td>
+
+                        <td class="empty">—</td>
+
+                        <td>
+                            <span class="teacher">CS-Ms Kanwal Ejaz</span>
+                            <span class="subject">Artificial Intelligence</span>
+                            <span class="room">C-205 (Shift-I)</span>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="day">Thu</td>
+
+                        <td class="empty">—</td>
+
+                        <td colspan="2">
+                            <span class="teacher">
+                                CS-Dr Mehdi Hassan /<br>
+                                CS-Mr Muhammad Junaid Nazar
+                            </span>
+                            <span class="subject">Design and Analysis of Algorithms</span>
+                            <span class="room">Lecture Hall 01</span>
+                        </td>
+
+                        <td class="lab" colspan="3">
+                            <span class="teacher">CS-Ms Warda Aslam</span>
+                            <span class="subject">Operating Systems Lab</span>
+                            <span class="room">Lab 13 C Block (3rd Floor) (Shift-I)</span>
+                        </td>
+
+                        <td>
+                            <span class="teacher">CS-Ms Kanwal Ejaz</span>
+                            <span class="subject">Artificial Intelligence</span>
+                            <span class="room">C-302 (Shift-I)</span>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="day">Fri</td>
+
+                        <td class="empty">—</td>
+
+                        <td>
+                            <span class="teacher">AUSOM-Ms Ayesha Munir-VFM</span>
+                            <span class="subject">Introduction to Management</span>
+                            <span class="room">C-203 (Shift-I)</span>
+                        </td>
+
+                        <td>
+                            <span class="teacher">Maths-Dr Waqas Sarwar Abbasi</span>
+                            <span class="subject">Linear Algebra</span>
+                            <span class="room">C-203 (Shift-I)</span>
+                        </td>
+
+                        <td class="lab" colspan="3">
+                            <span class="teacher">CS-Mr Hafiz Obiad Ullah Khan</span>
+                            <span class="subject">Full Stack Web Development Lab</span>
+                            <span class="room">Lab 5 A Block (Shift-I)</span>
+                        </td>
+
+                        <td class="empty">—</td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</body>
+</html>
