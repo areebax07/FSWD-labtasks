@@ -1,0 +1,968 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facebook Home</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f0f2f5;
+            color: #050505;
+        }
+
+        /* ================= HEADER ================= */
+
+        .header {
+            height: 64px;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 18px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.12);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 300px;
+        }
+
+        .logo {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: #1877f2;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 31px;
+            font-weight: bold;
+        }
+
+        .search {
+            width: 230px;
+            height: 42px;
+            border: none;
+            outline: none;
+            background: #f0f2f5;
+            border-radius: 22px;
+            padding: 0 17px;
+            font-size: 15px;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            flex: 1;
+        }
+
+        .nav-item {
+            width: 110px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #65676b;
+            font-size: 25px;
+            border-radius: 8px;
+        }
+
+        .nav-item:first-child {
+            color: #1877f2;
+            border-bottom: 3px solid #1877f2;
+            border-radius: 0;
+        }
+
+        .nav-item:hover {
+            background: #f0f2f5;
+        }
+
+        .header-right {
+            width: 300px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 9px;
+        }
+
+        .circle-btn {
+            width: 42px;
+            height: 42px;
+            background: #e4e6eb;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        /* ================= MAIN ================= */
+
+        .main {
+            max-width: 1500px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: 280px minmax(500px, 680px) 280px;
+            gap: 25px;
+            padding: 22px 20px;
+        }
+
+        /* ================= LEFT SIDEBAR ================= */
+
+        .left-sidebar {
+            position: sticky;
+            top: 85px;
+            height: fit-content;
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 8px;
+        }
+
+        .profile:hover,
+        .side-item:hover {
+            background: #e4e6eb;
+        }
+
+        .profile img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .profile span {
+            font-weight: bold;
+        }
+
+        .side-item {
+            height: 48px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 8px 10px;
+            border-radius: 10px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .side-icon {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .blue {
+            color: #1877f2;
+        }
+
+        .green {
+            color: #42b72a;
+        }
+
+        .purple {
+            color: #8b5cf6;
+        }
+
+        .orange {
+            color: #f97316;
+        }
+
+        /* ================= FEED ================= */
+
+        .feed {
+            width: 100%;
+        }
+
+        /* STORIES */
+
+        .stories {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 5px;
+            scrollbar-width: none;
+        }
+
+        .stories::-webkit-scrollbar {
+            display: none;
+        }
+
+        .story {
+            min-width: 125px;
+            height: 205px;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            background: white;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+
+        .story img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .story::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                transparent 45%,
+                rgba(0,0,0,0.75)
+            );
+        }
+
+        .story-avatar {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 38px;
+            height: 38px;
+            border: 4px solid #1877f2;
+            border-radius: 50%;
+            z-index: 2;
+        }
+
+        .story-name {
+            position: absolute;
+            bottom: 12px;
+            left: 10px;
+            right: 5px;
+            color: white;
+            font-weight: bold;
+            font-size: 13px;
+            z-index: 2;
+        }
+
+        /* CREATE POST */
+
+        .create-post {
+            background: white;
+            margin-top: 18px;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+        }
+
+        .post-top {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .post-avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .post-input {
+            flex: 1;
+            height: 42px;
+            background: #f0f2f5;
+            border-radius: 22px;
+            display: flex;
+            align-items: center;
+            padding-left: 18px;
+            color: #65676b;
+        }
+
+        .post-actions {
+            display: flex;
+            border-top: 1px solid #ddd;
+            margin-top: 14px;
+            padding-top: 10px;
+        }
+
+        .post-action {
+            flex: 1;
+            text-align: center;
+            padding: 9px;
+            border-radius: 7px;
+            color: #65676b;
+            font-weight: bold;
+        }
+
+        .post-action:hover {
+            background: #f0f2f5;
+        }
+
+        .video {
+            color: #f02849;
+        }
+
+        .photo {
+            color: #45bd62;
+        }
+
+        .feeling {
+            color: #f7b928;
+        }
+
+        /* POST */
+
+        .post {
+            background: white;
+            margin-top: 18px;
+            border-radius: 10px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+            overflow: hidden;
+        }
+
+        .post-header {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+        }
+
+        .post-user {
+            flex: 1;
+            margin-left: 10px;
+        }
+
+        .post-user strong {
+            display: block;
+            font-size: 15px;
+        }
+
+        .post-user small {
+            color: #65676b;
+            font-size: 12px;
+        }
+
+        .more {
+            font-size: 23px;
+            color: #65676b;
+        }
+
+        .post-text {
+            padding: 0 15px 15px;
+            line-height: 1.5;
+            font-size: 15px;
+        }
+
+        .post-image {
+            width: 100%;
+            max-height: 550px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .post-stats {
+            padding: 10px 15px;
+            display: flex;
+            justify-content: space-between;
+            color: #65676b;
+            font-size: 14px;
+        }
+
+        .post-buttons {
+            display: flex;
+            border-top: 1px solid #ddd;
+            margin: 0 15px;
+        }
+
+        .post-btn {
+            flex: 1;
+            padding: 12px;
+            text-align: center;
+            color: #65676b;
+            font-weight: bold;
+            border-radius: 7px;
+        }
+
+        .post-btn:hover {
+            background: #f0f2f5;
+        }
+
+        /* ================= RIGHT SIDEBAR ================= */
+
+        .right-sidebar {
+            position: sticky;
+            top: 85px;
+            height: fit-content;
+        }
+
+        .right-title {
+            color: #65676b;
+            font-size: 17px;
+            font-weight: bold;
+            margin: 10px 0 12px;
+        }
+
+        .contact {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px;
+            border-radius: 8px;
+        }
+
+        .contact:hover {
+            background: #e4e6eb;
+        }
+
+        .contact-image {
+            position: relative;
+        }
+
+        .contact img {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .online {
+            width: 11px;
+            height: 11px;
+            background: #31a24c;
+            border: 2px solid #f0f2f5;
+            border-radius: 50%;
+            position: absolute;
+            bottom: 0;
+            right: 0;
+        }
+
+        .contact-name {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 1200px) {
+
+            .main {
+                grid-template-columns: 220px minmax(450px, 680px);
+            }
+
+            .right-sidebar {
+                display: none;
+            }
+
+            .header-right {
+                width: 220px;
+            }
+        }
+
+        @media (max-width: 900px) {
+
+            .main {
+                grid-template-columns: 1fr;
+                max-width: 700px;
+            }
+
+            .left-sidebar {
+                display: none;
+            }
+
+            .header-left {
+                width: auto;
+            }
+
+            .search {
+                width: 180px;
+            }
+
+            .header-right {
+                width: auto;
+            }
+
+            .nav-item {
+                width: 80px;
+            }
+        }
+
+        @media (max-width: 650px) {
+
+            .header {
+                height: 58px;
+                padding: 0 10px;
+            }
+
+            .header-left {
+                gap: 7px;
+            }
+
+            .logo {
+                width: 38px;
+                height: 38px;
+                font-size: 28px;
+            }
+
+            .search {
+                width: 42px;
+                padding: 0;
+                font-size: 0;
+            }
+
+            .search::before {
+                content: "🔍";
+                font-size: 17px;
+            }
+
+            .nav {
+                display: none;
+            }
+
+            .header-right {
+                gap: 5px;
+            }
+
+            .circle-btn {
+                width: 38px;
+                height: 38px;
+                font-size: 17px;
+            }
+
+            .main {
+                display: block;
+                padding: 10px 0;
+            }
+
+            .feed {
+                width: 100%;
+            }
+
+            .stories {
+                padding: 0 8px 5px;
+            }
+
+            .story {
+                min-width: 105px;
+                height: 175px;
+            }
+
+            .create-post {
+                border-radius: 0;
+                margin-top: 10px;
+            }
+
+            .post {
+                border-radius: 0;
+                margin-top: 10px;
+            }
+
+            .post-actions {
+                font-size: 13px;
+            }
+
+            .post-action {
+                padding: 8px 2px;
+            }
+
+            .post-image {
+                max-height: 450px;
+            }
+        }
+
+        @media (max-width: 400px) {
+
+            .header {
+                padding: 0 7px;
+            }
+
+            .header-right .circle-btn:nth-child(3) {
+                display: none;
+            }
+
+            .story {
+                min-width: 95px;
+                height: 160px;
+            }
+
+            .story-avatar {
+                width: 34px;
+                height: 34px;
+            }
+
+            .post-buttons {
+                margin: 0 8px;
+            }
+
+            .post-btn {
+                padding: 10px 3px;
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ================= HEADER ================= -->
+
+    <header class="header">
+
+        <div class="header-left">
+            <div class="logo">f</div>
+            <input class="search" type="text" placeholder="Search Facebook">
+        </div>
+
+        <nav class="nav">
+            <div class="nav-item">⌂</div>
+            <div class="nav-item">▶</div>
+            <div class="nav-item">🛒</div>
+            <div class="nav-item">👥</div>
+        </nav>
+
+        <div class="header-right">
+            <div class="circle-btn">☰</div>
+            <div class="circle-btn">💬</div>
+            <div class="circle-btn">🔔</div>
+            <div class="circle-btn">👤</div>
+        </div>
+
+    </header>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="main">
+
+        <!-- LEFT SIDEBAR -->
+
+        <aside class="left-sidebar">
+
+            <div class="profile">
+                <img src="https://i.pravatar.cc/100?img=47">
+                <span>Areeba Zafar</span>
+            </div>
+
+            <div class="side-item">
+                <div class="side-icon blue">👥</div>
+                Friends
+            </div>
+
+            <div class="side-item">
+                <div class="side-icon blue">🕒</div>
+                Memories
+            </div>
+
+            <div class="side-item">
+                <div class="side-icon purple">🔖</div>
+                Saved
+            </div>
+
+            <div class="side-item">
+                <div class="side-icon green">👨‍👩‍👧</div>
+                Groups
+            </div>
+
+            <div class="side-item">
+                <div class="side-icon orange">🛒</div>
+                Marketplace
+            </div>
+
+            <div class="side-item">
+                <div class="side-icon blue">▶</div>
+                Video
+            </div>
+
+            <div class="side-item">
+                <div class="side-icon orange">📅</div>
+                Events
+            </div>
+
+        </aside>
+
+
+        <!-- ================= FEED ================= -->
+
+        <section class="feed">
+
+            <!-- STORIES -->
+
+            <div class="stories">
+
+                <div class="story">
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400">
+                    <img class="story-avatar"
+                         src="https://i.pravatar.cc/100?img=47">
+                    <div class="story-name">Your Story</div>
+                </div>
+
+                <div class="story">
+                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400">
+                    <img class="story-avatar"
+                         src="https://i.pravatar.cc/100?img=12">
+                    <div class="story-name">Taheer</div>
+                </div>
+
+                <div class="story">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400">
+                    <img class="story-avatar"
+                         src="https://i.pravatar.cc/100?img=32">
+                    <div class="story-name">Kanza</div>
+                </div>
+
+                <div class="story">
+                    <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400">
+                    <img class="story-avatar"
+                         src="https://i.pravatar.cc/100?img=11">
+                    <div class="story-name">Umer</div>
+                </div>
+
+                <div class="story">
+                    <img src="https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=400">
+                    <img class="story-avatar"
+                         src="https://i.pravatar.cc/100?img=25">
+                    <div class="story-name">Maila</div>
+                </div>
+
+            </div>
+
+
+            <!-- CREATE POST -->
+
+            <div class="create-post">
+
+                <div class="post-top">
+
+                    <img class="post-avatar"
+                         src="https://i.pravatar.cc/100?img=47">
+
+                    <div class="post-input">
+                        What's on your mind?
+                    </div>
+
+                </div>
+
+                <div class="post-actions">
+
+                    <div class="post-action video">
+                        🔴 Live Video
+                    </div>
+
+                    <div class="post-action photo">
+                        🖼️ Photo/Video
+                    </div>
+
+                    <div class="post-action feeling">
+                        😊 Feeling
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- POST 1 -->
+
+            <article class="post">
+
+                <div class="post-header">
+
+                    <img class="post-avatar"
+                         src="https://i.pravatar.cc/100?img=12">
+
+                    <div class="post-user">
+                        <strong>Taheer khan</strong>
+                        <small>2 hrs · 🌎</small>
+                    </div>
+
+                    <div class="more">•••</div>
+
+                </div>
+
+                <div class="post-text">
+                    Such a beautiful day! Sometimes you just need to
+                    step outside and enjoy the little things. ☀️
+                </div>
+
+                <img class="post-image"
+                     src="https://images.unsplash.com/photo-1500534623283-312aade485b7?w=1000">
+
+                <div class="post-stats">
+                    <span>👍 ❤️ 2.4K</span>
+                    <span>184 comments · 32 shares</span>
+                </div>
+
+                <div class="post-buttons">
+                    <div class="post-btn">👍 Like</div>
+                    <div class="post-btn">💬 Comment</div>
+                    <div class="post-btn">↗ Share</div>
+                </div>
+
+            </article>
+
+
+            <!-- POST 2 -->
+
+            <article class="post">
+
+                <div class="post-header">
+
+                    <img class="post-avatar"
+                         src="https://i.pravatar.cc/100?img=32">
+
+                    <div class="post-user">
+                        <strong>Kanza</strong>
+                        <small>5 hrs · 🌎</small>
+                    </div>
+
+                    <div class="more">•••</div>
+
+                </div>
+
+                <div class="post-text">
+                    Weekend vibes 🌿✨
+                    <br>
+                    Hope everyone is having an amazing weekend!
+                </div>
+
+                <img class="post-image"
+                     src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=1000">
+
+                <div class="post-stats">
+                    <span>👍 ❤️ 1.8K</span>
+                    <span>96 comments · 18 shares</span>
+                </div>
+
+                <div class="post-buttons">
+                    <div class="post-btn">👍 Like</div>
+                    <div class="post-btn">💬 Comment</div>
+                    <div class="post-btn">↗ Share</div>
+                </div>
+
+            </article>
+
+
+            <!-- POST 3 -->
+
+            <article class="post">
+
+                <div class="post-header">
+
+                    <img class="post-avatar"
+                         src="https://i.pravatar.cc/100?img=11">
+
+                    <div class="post-user">
+                        <strong>Umer</strong>
+                        <small>Yesterday · 🌎</small>
+                    </div>
+
+                    <div class="more">•••</div>
+
+                </div>
+
+                <div class="post-text">
+                    Coffee + good music = perfect morning ☕🎵
+                </div>
+
+                <img class="post-image"
+                     src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1000">
+
+                <div class="post-stats">
+                    <span>👍 ❤️ 980</span>
+                    <span>64 comments · 12 shares</span>
+                </div>
+
+                <div class="post-buttons">
+                    <div class="post-btn">👍 Like</div>
+                    <div class="post-btn">💬 Comment</div>
+                    <div class="post-btn">↗ Share</div>
+                </div>
+
+            </article>
+
+        </section>
+
+
+        <!-- ================= RIGHT SIDEBAR ================= -->
+
+        <aside class="right-sidebar">
+
+            <div class="right-title">
+                Sponsored
+            </div>
+
+            <div class="contact">
+                <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=200"
+                     style="border-radius:10px;">
+                <div class="contact-name">
+                    Discover something new
+                </div>
+            </div>
+
+            <hr style="margin:18px 0; border:0; border-top:1px solid #ddd;">
+
+            <div class="right-title">
+                Contacts
+            </div>
+
+            <div class="contact">
+                <div class="contact-image">
+                    <img src="https://i.pravatar.cc/100?img=12">
+                    <span class="online"></span>
+                </div>
+                <span class="contact-name">Taheer Khan</span>
+            </div>
+
+            <div class="contact">
+                <div class="contact-image">
+                    <img src="https://i.pravatar.cc/100?img=32">
+                    <span class="online"></span>
+                </div>
+                <span class="contact-name">Muniba</span>
+            </div>
+
+            <div class="contact">
+                <div class="contact-image">
+                    <img src="https://i.pravatar.cc/100?img=11">
+                    <span class="online"></span>
+                </div>
+                <span class="contact-name">Umer</span>
+            </div>
+
+            <div class="contact">
+                <div class="contact-image">
+                    <img src="https://i.pravatar.cc/100?img=25">
+                    <span class="online"></span>
+                </div>
+                <span class="contact-name">Kanza</span>
+            </div>
+
+            <div class="contact">
+                <div class="contact-image">
+                    <img src="https://i.pravatar.cc/100?img=44">
+                    <span class="online"></span>
+                </div>
+                <span class="contact-name">Maila Azam</span>
+            </div>
+
+        </aside>
+
+    </main>
+
+</body>
+</html>
+```
