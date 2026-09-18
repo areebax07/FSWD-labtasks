@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Areeba Zafar | Portfolio - BSCS (5th Semester)</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        beige: {
+                            DEFAULT: '#F3E9DD',
+                            light: '#F8F3EC',
+                            dark: '#E2D3C1',
+                            deep: '#EDE1D2'
+                        },
+                        burgundy: {
+                            DEFAULT: '#581845',
+                            light: '#7A285E',
+                            dark: '#3A0F2D',
+                            accent: '#8C1D40'
+                        },
+                        royalBlue: {
+                            DEFAULT: '#1E3A8A',
+                            light: '#3B82F6',
+                            dark: '#172554'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet5" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Richer, warmer Beige background with burgundy/royal-blue motif inspired by the burgundy petals reference */
+        .aesthetic-bg {
+            background-color: #F3E9DD;
+            background-image: 
+                radial-gradient(#581845 0.85px, transparent 0.85px), 
+                radial-gradient(#1E3A8A 0.85px, #F3E9DD 0.85px);
+            background-size: 32px 32px;
+            background-position: 0 0, 16px 16px;
+        }
+        
+        .petal-shape {
+            position: absolute;
+            background: rgba(88, 24, 69, 0.09);
+            border-radius: 50% 20% 50% 20%;
+            pointer-events: none;
+            z-index: 0;
+            filter: blur(40px);
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F3E9DD;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #581845;
+            border-radius: 5px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #7A285E;
+        }
+    </style>
+</head>
+<body class="aesthetic-bg text-gray-800 font-sans relative selection:bg-burgundy selection:text-white min-h-screen">
+
+    <!-- Decorative Petal & Floral Inspired Background Blobs -->
+    <div class="petal-shape w-[420px] h-[420px] top-12 left-[-80px] rotate-45"></div>
+    <div class="petal-shape w-[520px] h-[520px] top-[35%] right-[-120px] -rotate-12 bg-royalBlue/5"></div>
+    <div class="petal-shape w-96 h-96 bottom-16 left-[8%] rotate-12 bg-burgundy/8"></div>
+    <div class="petal-shape w-[450px] h-[450px] bottom-[15%] right-[5%] -rotate-45 bg-royalBlue/5"></div>
+
+    <!-- Header / Navbar -->
+    <header class="sticky top-0 z-50 backdrop-blur-md bg-beige/85 border-b border-burgundy/15 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="font-serif text-2xl font-bold tracking-wider text-burgundy flex items-center gap-2">
+                <span class="inline-block w-3 h-3 rounded-full bg-royalBlue"></span>
+                Areeba Zafar
+            </a>
+            <nav class="hidden md:flex gap-8 text-sm font-medium tracking-wide text-gray-700">
+                <a href="#about" class="hover:text-burgundy transition-colors">About</a>
+                <a href="#skills" class="hover:text-burgundy transition-colors">Skills & Stack</a>
+                <a href="#projects" class="hover:text-burgundy transition-colors">Major Projects</a>
+                <a href="#contact" class="hover:text-burgundy transition-colors">Contact</a>
+            </nav>
+            <a href="#contact" class="hidden sm:inline-flex px-5 py-2 rounded-full bg-burgundy text-beige font-medium text-sm hover:bg-burgundy-light shadow-md transition-all transform hover:-translate-y-0.5">
+                Let's Connect
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="relative z-10">
+
+        <!-- Hero Section -->
+        <section id="about" class="max-w-7xl mx-auto px-6 py-16 md:py-24 grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
+            <div class="md:col-span-7 space-y-6">
+                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-royalBlue/10 text-royalBlue text-xs font-semibold uppercase tracking-wider border border-royalBlue/20 shadow-xs">
+                    <i class="fa-solid fa-graduation-cap"></i> Air University • BSCS 5th Semester
+                </div>
+                <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-burgundy tracking-tight leading-tight">
+                    Full-Stack Developer & <span class="text-royalBlue italic">Software Engineer</span>
+                </h1>
+                <p class="text-lg text-gray-700 leading-relaxed font-normal">
+                    Hi, I'm <strong class="text-burgundy font-semibold">Areeba Zafar</strong>. A passionate computer science undergraduate crafting robust full-stack applications, interactive spatial hazard portals, and elegant digital systems with a refined aesthetic touch.
+                </p>
+                <div class="flex flex-wrap gap-4 pt-2">
+                    <a href="#projects" class="px-7 py-3.5 rounded-xl bg-burgundy text-beige font-semibold shadow-lg hover:bg-burgundy-light transition-all flex items-center gap-2">
+                        <span>Explore Projects</span>
+                        <i class="fa-solid fa-arrow-down text-xs"></i>
+                    </a>
+                    <a href="#skills" class="px-7 py-3.5 rounded-xl border-2 border-royalBlue text-royalBlue font-semibold hover:bg-royalBlue hover:text-white transition-all">
+                        View Tech Stack
+                    </a>
+                </div>
+            </div>
+
+            <!-- Pretty Custom Person Icon / Graphic Layout -->
+            <div class="md:col-span-5 flex justify-center">
+                <div class="relative w-72 h-72 sm:w-80 sm:h-80">
+                    <!-- Decorative background frame elements -->
+                    <div class="absolute inset-0 rounded-3xl bg-gradient-to-tr from-burgundy to-royalBlue rotate-6 opacity-20 shadow-2xl"></div>
+                    <div class="absolute inset-0 rounded-3xl bg-beige-dark/60 -rotate-3 border border-burgundy/20"></div>
+                    
+                    <!-- Central Avatar Container -->
+                    <div class="absolute inset-2 rounded-2xl bg-beige-light flex flex-col items-center justify-center p-6 text-center border border-burgundy/15 shadow-inner overflow-hidden group">
+                        <div class="absolute top-3 right-3 flex gap-1 text-burgundy/40 text-xs">
+                            <i class="fa-solid fa-seedling"></i>
+                            <i class="fa-solid fa-leaf"></i>
+                        </div>
+                        <div class="w-28 h-28 rounded-full bg-gradient-to-br from-burgundy to-royalBlue flex items-center justify-center shadow-lg mb-4 text-beige text-5xl group-hover:scale-105 transition-transform duration-300 border-4 border-beige">
+                            <i class="fa-solid fa-user-gear"></i>
+                        </div>
+                        <h3 class="font-serif font-bold text-xl text-burgundy">Areeba Zafar</h3>
+                        <p class="text-xs text-royalBlue font-medium uppercase tracking-wider mt-1">BSCS • 5th Semester</p>
+                        <span class="inline-block w-12 h-0.5 bg-burgundy/30 my-2"></span>
+                        <p class="text-xs text-gray-600">Air University Islamabad</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills & Tech Stack Section -->
+        <section id="skills" class="py-20 bg-beige-light/80 border-y border-burgundy/15 backdrop-blur-sm">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="text-center max-w-2xl mx-auto mb-16 space-y-3">
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold text-burgundy">Technical Expertise</h2>
+                    <p class="text-gray-600">Comprehensive toolkit spanning full-stack web development, enterprise systems, programming languages, and databases.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    
+                    <!-- Full-Stack Web Development -->
+                    <div class="bg-beige rounded-2xl p-6 border border-burgundy/20 shadow-sm hover:shadow-md transition-shadow">
+                        <div class="w-12 h-12 rounded-xl bg-burgundy text-beige flex items-center justify-center text-xl mb-4 shadow">
+                            <i class="fa-solid fa-laptop-code"></i>
+                        </div>
+                        <h3 class="font-serif font-bold text-xl text-burgundy mb-3">Full-Stack Web</h3>
+                        <p class="text-xs text-gray-600 mb-4">Specialized in building end-to-end interactive web apps with modern frameworks and backends.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-2.5 py-1 rounded-md bg-burgundy/10 text-burgundy text-xs font-medium">HTML5 & CSS3</span>
+                            <span class="px-2.5 py-1 rounded-md bg-burgundy/10 text-burgundy text-xs font-medium">JavaScript / TypeScript</span>
+                            <span class="px-2.5 py-1 rounded-md bg-burgundy/10 text-burgundy text-xs font-medium">React & Next.js</span>
+                            <span class="px-2.5 py-1 rounded-md bg-burgundy/10 text-burgundy text-xs font-medium">Node.js & NestJS</span>
+                            <span class="px-2.5 py-1 rounded-md bg-burgundy/10 text-burgundy text-xs font-medium">Blazor</span>
+                        </div>
+                    </div>
+
+                    <!-- Programming Languages & Desktop -->
+                    <div class="bg-beige rounded-2xl p-6 border border-burgundy/20 shadow-sm hover:shadow-md transition-shadow">
+                        <div class="w-12 h-12 rounded-xl bg-royalBlue text-beige flex items-center justify-center text-xl mb-4 shadow">
+                            <i class="fa-solid fa-code"></i>
+                        </div>
+                        <h3 class="font-serif font-bold text-xl text-royalBlue mb-3">Languages & System</h3>
+                        <p class="text-xs text-gray-600 mb-4">Core languages, multi-paradigm development, mobile apps, and system-level applications.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-2.5 py-1 rounded-md bg-royalBlue/10 text-royalBlue text-xs font-medium">C# (.NET)</span>
+                            <span class="px-2.5 py-1 rounded-md bg-royalBlue/10 text-royalBlue text-xs font-medium">Dart & Flutter</span>
+                            <span class="px-2.5 py-1 rounded-md bg-royalBlue/10 text-royalBlue text-xs font-medium">Python</span>
+                            <span class="px-2.5 py-1 rounded-md bg-royalBlue/10 text-royalBlue text-xs font-medium">C++</span>
+                            <span class="px-2.5 py-1 rounded-md bg-royalBlue/10 text-royalBlue text-xs font-medium">8086 Assembly</span>
+                        </div>
+                    </div>
+
+                    <!-- Databases & Data Access -->
+                    <div class="bg-beige rounded-2xl p-6 border border-burgundy/20 shadow-sm hover:shadow-md transition-shadow">
+                        <div class="w-12 h-12 rounded-xl bg-burgundy text-beige flex items-center justify-center text-xl mb-4 shadow">
+                            <i class="fa-solid fa-database"></i>
+                        </div>
+                        <h3 class="font-serif font-bold text-xl text-burgundy mb-3">Databases & Data</h3>
+                        <p class="text-xs text-gray-600 mb-4">Enterprise database engines, object-relational mapping, and cloud backends.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-2.5 py-1 rounded-md bg-burgundy/10 text-burgundy text-xs font-medium">ADO.NET</span>
+                            <span class="px-2.5 py-1 rounded-md bg-burgundy/10 text-burgundy text-xs font-medium">SSMS (SQL Server)</span>
+                            <span class="px-2.5 py-1 rounded-md bg-burgundy/10 text-burgundy text-xs font-medium">Supabase</span>
+                            <span class="px-2.5 py-1 rounded-md bg-burgundy/10 text-burgundy text-xs font-medium">Firebase</span>
+                            <span class="px-2.5 py-1 rounded-md bg-burgundy/10 text-burgundy text-xs font-medium">SQL / Queries</span>
+                        </div>
+                    </div>
+
+                    <!-- Tools & Environments -->
+                    <div class="bg-beige rounded-2xl p-6 border border-burgundy/20 shadow-sm hover:shadow-md transition-shadow">
+                        <div class="w-12 h-12 rounded-xl bg-royalBlue text-beige flex items-center justify-center text-xl mb-4 shadow">
+                            <i class="fa-solid fa-screwdriver-wrench"></i>
+                        </div>
+                        <h3 class="font-serif font-bold text-xl text-royalBlue mb-3">Tools & Environments</h3>
+                        <p class="text-xs text-gray-600 mb-4">Development suites, emulators, version control, and networking utilities.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-2.5 py-1 rounded-md bg-royalBlue/10 text-royalBlue text-xs font-medium">Visual Studio & VS Code</span>
+                            <span class="px-2.5 py-1 rounded-md bg-royalBlue/10 text-royalBlue text-xs font-medium">SSMS Studio</span>
+                            <span class="px-2.5 py-1 rounded-md bg-royalBlue/10 text-royalBlue text-xs font-medium">Android Studio</span>
+                            <span class="px-2.5 py-1 rounded-md bg-royalBlue/10 text-royalBlue text-xs font-medium">EMU8086</span>
+                            <span class="px-2.5 py-1 rounded-md bg-royalBlue/10 text-royalBlue text-xs font-medium">Cisco Packet Tracer</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Major Projects Section -->
+        <section id="projects" class="py-24 max-w-7xl mx-auto px-6">
+            <div class="text-center max-w-2xl mx-auto mb-16 space-y-3">
+                <div class="inline-block px-3 py-1 rounded-full bg-burgundy/10 text-burgundy text-xs font-semibold tracking-wider uppercase">
+                    Portfolio Showcase
+                </div>
+                <h2 class="font-serif text-3xl sm:text-4xl font-bold text-burgundy">Major Projects</h2>
+                <p class="text-gray-600">A detailed collection of sophisticated systems, data processing tools, and full-stack web applications developed during academic semesters.</p>
+            </div>
+
+            <div class="space-y-10 max-w-5xl mx-auto">
+
+                <!-- Project 1: NexaCity Smart City Management -->
+                <div class="bg-beige-light rounded-3xl border border-burgundy/20 overflow-hidden shadow-md grid grid-cols-1 lg:grid-cols-12 gap-0 group">
+                    <div class="lg:col-span-5 bg-gradient-to-br from-burgundy to-royalBlue p-7 text-beige flex flex-col justify-between relative overflow-hidden">
+                        <div>
+                            <span class="px-3 py-1 rounded-full bg-white/10 text-xs font-semibold uppercase tracking-wider">Smart City Architecture</span>
+                            <h3 class="font-serif text-2xl font-bold mt-4">NexaCity Management System</h3>
+                        </div>
+                        <div class="mt-6 space-y-2.5 text-xs text-beige/90">
+                            <div class="flex items-center gap-2"><i class="fa-solid fa-check text-burgundy-accent bg-white rounded-full p-0.5 text-[10px]"></i> <span>Blazor Web Components</span></div>
+                            <div class="flex items-center gap-2"><i class="fa-solid fa-check text-burgundy-accent bg-white rounded-full p-0.5 text-[10px]"></i> <span>ADO.NET Data Layer</span></div>
+                            <div class="flex items-center gap-2"><i class="fa-solid fa-check text-burgundy-accent bg-white rounded-full p-0.5 text-[10px]"></i> <span>Windows Forms Modules</span></div>
+                            <div class="flex items-center gap-2"><i class="fa-solid fa-check text-burgundy-accent bg-white rounded-full p-0.5 text-[10px]"></i> <span>SSMS Database Backend</span></div>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-7 p-7 sm:p-8 flex flex-col justify-between">
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-semibold text-royalBlue uppercase tracking-wider">Full-Stack Enterprise Solution</span>
+                                <div class="flex gap-1 text-burgundy text-xs"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            </div>
+                            <h4 class="font-serif text-xl font-bold text-burgundy">NexaCity Smart Infrastructure Hub</h4>
+                            <p class="text-gray-700 text-xs sm:text-sm leading-relaxed">
+                                A comprehensive multi-module smart city management platform engineered with a robust architecture. It features interactive Blazor web interfaces, dynamic Windows Forms modules for administrative control, and efficient database connectivity powered by ADO.NET communicating directly with Microsoft SQL Server Management Studio (SSMS).
+                            </p>
+                            <div class="pt-1 flex flex-wrap gap-1.5">
+                                <span class="px-2.5 py-1 rounded-md bg-burgundy/10 text-burgundy text-[11px] font-medium">C# / .NET</span>
+                                <span class="px-2.5 py-1 rounded-md bg-burgundy/10 text-burgundy text-[11px] font-medium">Blazor</span>
+                                <span class="px-2.5 py-1 rounded-md bg-burgundy/10 text-burgundy text-[11px] font-medium">ADO.NET</span>
+                                <span class="px-2.5 py-1 rounded-md bg-burgundy/10 text-burgundy text-[11px] font-medium">Windows Forms</span>
+                                <span class="px-2.5 py-1 rounded-md bg-burgundy/10 text-burgundy text-[11px] font-medium">SSMS</span>
+                            </div>
+                        </div>
+                        <div class="pt-4 mt-4 border-t border-burgundy/10 flex items-center justify-between text-xs text-gray-500">
+                            <span>Team Collaboration: Maarij Shakoor</span>
+                            <span class="text-burgundy font-medium">Air University Project</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2: Luxury Perfume E-Commerce Web Application -->
+                <div class="bg-beige-light rounded-3xl border border-burgundy/20 overflow-hidden shadow-md grid grid-cols-1 lg:grid-cols-12 gap-0 group">
+                    <div class="lg:col-span-5 bg-gradient-to-br from-royalBlue to-burgundy p-7 text-beige flex flex-col justify-between relative overflow-hidden">
+                        <div>
+                            <span class="px-3 py-1 rounded-full bg-white/10 text-xs font-semibold uppercase tracking-wider">E-Commerce & Branding</span>
+                            <h3 class="font-serif text-2xl font-bold mt-4">Aura & Essence Perfume Web App</h3>
+                        </div>
+                        <div class="mt-6 space-y-2.5 text-xs text-beige/90">
+                            <div class="flex items-center gap-2"><i class="fa-solid fa-check text-royalBlue bg-white rounded-full p-0.5 text-[10px]"></i> <span>Bespoke Fragrance Catalog</span></div>
+                            <div class="flex items-center gap-2"><i class="fa-solid fa-check text-royalBlue bg-white rounded-full p-0.5 text-[10px]"></i> <span>Interactive Shopping Cart & Auth</span></div>
+                            <div class="flex items-center gap-2"><i class="fa-solid fa-check text-royalBlue bg-white rounded-full p-0.5 text-[10px]"></i> <span>Supabase / Firebase Database</span></div>
+                            <div class="flex items-center gap-2"><i class="fa-solid fa-check text-royalBlue bg-white rounded-full p-0.5 text-[10px]"></i> <span>Elegant Aesthetic UI Design</span></div>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-7 p-7 sm:p-8 flex flex-col justify-between">
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-semibold text-royalBlue uppercase tracking-wider">Full-Stack E-Commerce Web App</span>
+                                <div class="flex gap-1 text-burgundy text-xs"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            </div>
+                            <h4 class="font-serif text-xl font-bold text-burgundy">Aura & Essence - Luxury Fragrance Boutique</h4>
+                            <p class="text-gray-700 text-xs sm:text-sm leading-relaxed">
+                                A fully featured boutique e-commerce web platform designed for premium fragrances. Features include responsive product filtering by scent notes, user authentication, secure cart state management, and real-time backend synchronization using Supabase and Firebase, wrapped in a sophisticated pastel-and-burgundy aesthetic layout.
+                            </p>
+                            <div class="pt-1 flex flex-wrap gap-1.5">
+                                <span class="px-2.5 py-1 rounded-md bg-royalBlue/10 text-royalBlue text-[11px] font-medium">JavaScript / TypeScript</span>
+                                <span class="px-2.5 py-1 rounded-md bg-royalBlue/10 text-royalBlue text-[11px] font-medium">React / Next.js</span>
+                                <span class="px-2.5 py-1 rounded-md bg-royalBlue/10 text-royalBlue text-[11px] font-medium">Supabase</span>
+                                <span class="px-2.5 py-1 rounded-md bg-royalBlue/10 text-royalBlue text-[11px] font-medium">Firebase Auth</span>
+                            </div>
+                        </div>
+                        <div class="pt-4 mt-4 border-t border-burgundy/10 flex items-center justify-between text-xs text-gray-500">
+                            <span>Interactive UI & Database Integration</span>
+                            <span class="text-royalBlue font-medium">Web Development Portfolio</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3: Disaster Management & Real-Time Hazard Portal -->
+                <div class="bg-beige-light rounded-3xl border border-burgundy/20 overflow-hidden shadow-md grid grid-cols-1 lg:grid-cols-12 gap-0 group">
+                    <div class="lg:col-span-5 bg-gradient-to-br from-burgundy via-burgundy-dark to-royalBlue p-7 text-beige flex flex-col justify-between relative overflow-hidden">
+                        <div>
+                            <span class="px-3 py-1 rounded-full bg-white/10 text-xs font-semibold uppercase tracking-wider">Emergency Response GIS</span>
+                            <h3 class="font-serif text-2xl font-bold mt-4">Disaster Management & Hazard Portal</h3>
+                        </div>
+                        <div class="mt-6 space-y-2.5 text-xs text-beige/90">
+                            <div class="flex items-center gap-2"><i class="fa-solid fa-check text-beige bg-burgundy rounded-full p-0.5 text-[10px]"></i> <span>GeoJSON Spatial Data Layers</span></div>
+                            <div class="flex items-center gap-2"><i class="fa-solid fa-check text-beige bg-burgundy rounded-full p-0.5 text-[10px]"></i> <span>Real-Time Live Alerts & Hazards</span></div>
+                            <div class="flex items-center gap-2"><i class="fa-solid fa-check text-beige bg-burgundy rounded-full p-0.5 text-[10px]"></i> <span>Citizen Portal with GPS Reporting</span></div>
+                            <div class="flex items-center gap-2"><i class="fa-solid fa-check text-beige bg-burgundy rounded-full p-0.5 text-[10px]"></i> <span>Interactive Emergency Maps</span></div>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-7 p-7 sm:p-8 flex flex-col justify-between">
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-semibold text-royalBlue uppercase tracking-wider">Major Disaster & Emergency System</span>
+                                <div class="flex gap-1 text-burgundy text-xs"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            </div>
+                            <h4 class="font-serif text-xl font-bold text-burgundy">Real-Time Citizen Disaster & Hazard Reporting Portal</h4>
+                            <p class="text-gray-700 text-xs sm:text-sm leading-relaxed">
+                                Our most advanced safety and emergency intelligence platform. Built with real-time live alert feeds and dynamic GeoJSON spatial data integration, it features a dedicated citizen portal enabling users to report disaster incidents instantly using device GPS coordinates for rapid emergency response coordination.
+                            </p>
+                            <div class="pt-1 flex flex-wrap gap-1.5">
+                                <span class="px-2.5 py-1 rounded-md bg-burgundy/10 text-burgundy text-[11px] font-medium">GeoJSON / GIS</span>
+                                <span class="px-2.5 py-1 rounded-md bg-burgundy/10 text-burgundy text-[11px] font-medium">GPS Geolocation API</span>
+                                <span class="px-2.5 py-1 rounded-md bg-burgundy/10 text-burgundy text-[11px] font-medium">Real-Time WebSockets</span>
+                                <span class="px-2.5 py-1 rounded-md bg-burgundy/10 text-burgundy text-[11px] font-medium">Interactive Mapping</span>
+                            </div>
+                        </div>
+                        <div class="pt-4 mt-4 border-t border-burgundy/10 flex items-center justify-between text-xs text-gray-500">
+                            <span>Collaborative Core Project</span>
+                            <span class="text-burgundy font-medium">Air University System</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 4: Farm Weather Data System (GFS, WRF) -->
+                <div class="bg-beige-light rounded-3xl border border-burgundy/20 overflow-hidden shadow-md grid grid-cols-1 lg:grid-cols-12 gap-0 group">
+                    <div class="lg:col-span-5 bg-gradient-to-br from-royalBlue to-burgundy p-7 text-beige flex flex-col justify-between relative overflow-hidden">
+                        <div>
+                            <span class="px-3 py-1 rounded-full bg-white/10 text-xs font-semibold uppercase tracking-wider">Agro-Meteorology</span>
+                            <h3 class="font-serif text-2xl font-bold mt-4">Farm Weather Data System</h3>
+                        </div>
+                        <div class="mt-6 space-y-2.5 text-xs text-beige/90">
+                            <div class="flex items-center gap-2"><i class="fa-solid fa-check text-royalBlue bg-white rounded-full p-0.5 text-[10px]"></i> <span>GFS & WRF Model Integration</span></div>
+                            <div class="flex items-center gap-2"><i class="fa-solid fa-check text-royalBlue bg-white rounded-full p-0.5 text-[10px]"></i> <span>Agricultural Weather Feeds</span></div>
+                            <div class="flex items-center gap-2"><i class="fa-solid fa-check text-royalBlue bg-white rounded-full p-0.5 text-[10px]"></i> <span>Python Data Processing Pipeline</span></div>
+                            <div class="flex items-center gap-2"><i class="fa-solid fa-check text-royalBlue bg-white rounded-full p-0.5 text-[10px]"></i> <span>Farm Zone Map Analytics</span></div>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-7 p-7 sm:p-8 flex flex-col justify-between">
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-semibold text-royalBlue uppercase tracking-wider">Agricultural Weather Analytics</span>
+                                <div class="flex gap-1 text-burgundy text-xs"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            </div>
+                            <h4 class="font-serif text-xl font-bold text-burgundy">Farm Weather Intelligence & GFS/WRF Feed</h4>
+                            <p class="text-gray-700 text-xs sm:text-sm leading-relaxed">
+                                A specialized agro-meteorological analytics platform processing Global Forecast System (GFS) and Weather Research and Forecasting (WRF) model outputs. It provides targeted weather parameter monitoring specifically tailored for agricultural farm zones and crop climate tracking.
+                            </p>
+                            <div class="pt-1 flex flex-wrap gap-1.5">
+                                <span class="px-2.5 py-1 rounded-md bg-royalBlue/10 text-royalBlue text-[11px] font-medium">Python</span>
+                                <span class="px-2.5 py-1 rounded-md bg-royalBlue/10 text-royalBlue text-[11px] font-medium">GFS & WRF Models</span>
+                                <span class="px-2.5 py-1 rounded-md bg-royalBlue/10 text-royalBlue text-[11px] font-medium">REST APIs</span>
+                                <span class="px-2.5 py-1 rounded-md bg-royalBlue/10 text-royalBlue text-[11px] font-medium">Spatial Analytics</span>
+                            </div>
+                        </div>
+                        <div class="pt-4 mt-4 border-t border-burgundy/10 flex items-center justify-between text-xs text-gray-500">
+                            <span>Agricultural Meteorological Tool</span>
+                            <span class="text-royalBlue font-medium">Air University Research</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 5: Earth Satellite Meteorological Processing (.nat & .nc) -->
+                <div class="bg-beige-light rounded-3xl border border-burgundy/20 overflow-hidden shadow-md grid grid-cols-1 lg:grid-cols-12 gap-0 group">
+                    <div class="lg:col-span-5 bg-gradient-to-br from-burgundy to-burgundy-dark p-7 text-beige flex flex-col justify-between relative overflow-hidden">
+                        <div>
+                            <span class="px-3 py-1 rounded-full bg-white/10 text-xs font-semibold uppercase tracking-wider">Satellite Remote Sensing</span>
+                            <h3 class="font-serif text-2xl font-bold mt-4">Earth Satellite Data Visualizer</h3>
+                        </div>
+                        <div class="mt-6 space-y-2.5 text-xs text-beige/90">
+                            <div class="flex items-center gap-2"><i class="fa-solid fa-check text-burgundy-accent bg-white rounded-full p-0.5 text-[10px]"></i> <span>EUMETSAT SEVIRI (.nat) Parser</span></div>
+                            <div class="flex items-center gap-2"><i class="fa-solid fa-check text-burgundy-accent bg-white rounded-full p-0.5 text-[10px]"></i> <span>NetCDF (.nc) Environmental Layers</span></div>
+                            <div class="flex items-center gap-2"><i class="fa-solid fa-check text-burgundy-accent bg-white rounded-full p-0.5 text-[10px]"></i> <span>Satpy & Multispectral RGBs</span></div>
+                            <div class="flex items-center gap-2"><i class="fa-solid fa-check text-burgundy-accent bg-white rounded-full p-0.5 text-[10px]"></i> <span>Interactive Web Dashboards</span></div>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-7 p-7 sm:p-8 flex flex-col justify-between">
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-semibold text-royalBlue uppercase tracking-wider">Satellite Meteorology Tool</span>
+                                <div class="flex gap-1 text-burgundy text-xs"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            </div>
+                            <h4 class="font-serif text-xl font-bold text-burgundy">Satellite Environmental & Weather Hazard Visualizer</h4>
+                            <p class="text-gray-700 text-xs sm:text-sm leading-relaxed">
+                                A high-performance satellite data processing pipeline and web visualizer designed to ingest raw EUMETSAT SEVIRI payload files (`.nat`) and NetCDF (`.nc`) datasets. Utilizing Python libraries like Satpy, the system extracts multispectral channels to render complex environmental RGB composites onto interactive mapping interfaces.
+                            </p>
+                            <div class="pt-1 flex flex-wrap gap-1.5">
+                                <span class="px-2.5 py-1 rounded-md bg-burgundy/10 text-burgundy text-[11px] font-medium">Python</span>
+                                <span class="px-2.5 py-1 rounded-md bg-burgundy/10 text-burgundy text-[11px] font-medium">Satpy Library</span>
+                                <span class="px-2.5 py-1 rounded-md bg-burgundy/10 text-burgundy text-[11px] font-medium">.nat & .nc Formats</span>
+                                <span class="px-2.5 py-1 rounded-md bg-burgundy/10 text-burgundy text-[11px] font-medium">RGB Composites</span>
+                            </div>
+                        </div>
+                        <div class="pt-4 mt-4 border-t border-burgundy/10 flex items-center justify-between text-xs text-gray-500">
+                            <span>Multispectral Satellite Processing</span>
+                            <span class="text-burgundy font-medium">Air University Project</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 6: Geophysical Data Processing Pipeline -->
+                <div class="bg-beige-light rounded-3xl border border-burgundy/20 overflow-hidden shadow-md grid grid-cols-1 lg:grid-cols-12 gap-0 group">
+                    <div class="lg:col-span-5 bg-gradient-to-br from-royalBlue to-burgundy-dark p-7 text-beige flex flex-col justify-between relative overflow-hidden">
+                        <div>
+                            <span class="px-3 py-1 rounded-full bg-white/10 text-xs font-semibold uppercase tracking-wider">Geoscience & Analytics</span>
+                            <h3 class="font-serif text-2xl font-bold mt-4">Geophysical Data Pipeline</h3>
+                        </div>
+                        <div class="mt-6 space-y-2.5 text-xs text-beige/90">
+                            <div class="flex items-center gap-2"><i class="fa-solid fa-check text-royalBlue bg-white rounded-full p-0.5 text-[10px]"></i> <span>Induced Polarization (IP) Analysis</span></div>
+                            <div class="flex items-center gap-2"><i class="fa-solid fa-check text-royalBlue bg-white rounded-full p-0.5 text-[10px]"></i> <span>Chargeability & PFE Calculation</span></div>
+                            <div class="flex items-center gap-2"><i class="fa-solid fa-check text-royalBlue bg-white rounded-full p-0.5 text-[10px]"></i> <span>Mineral Drill Target Evaluation</span></div>
+                            <div class="flex items-center gap-2"><i class="fa-solid fa-check text-royalBlue bg-white rounded-full p-0.5 text-[10px]"></i> <span>Automated LaTeX Report Generation</span></div>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-7 p-7 sm:p-8 flex flex-col justify-between">
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-semibold text-royalBlue uppercase tracking-wider">Geophysical Analysis System</span>
+                                <div class="flex gap-1 text-burgundy text-xs"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            </div>
+                            <h4 class="font-serif text-xl font-bold text-burgundy">Induced Polarization Survey Data Processor</h4>
+                            <p class="text-gray-700 text-xs sm:text-sm leading-relaxed">
+                                A specialized Python data processing pipeline created to ingest and analyze Induced Polarization (IP) survey data from CSV files. It automatically computes chargeability and percent frequency effect (PFE) metrics to assess subsurface mineral drill targets, compiling findings into a professionally formatted LaTeX project report.
+                            </p>
+                            <div class="pt-1 flex flex-wrap gap-1.5">
+                                <span class="px-2.5 py-1 rounded-md bg-royalBlue/10 text-royalBlue text-[11px] font-medium">Python</span>
+                                <span class="px-2.5 py-1 rounded-md bg-royalBlue/10 text-royalBlue text-[11px] font-medium">Pandas & NumPy</span>
+                                <span class="px-2.5 py-1 rounded-md bg-royalBlue/10 text-royalBlue text-[11px] font-medium">LaTeX Reporting</span>
+                                <span class="px-2.5 py-1 rounded-md bg-royalBlue/10 text-royalBlue text-[11px] font-medium">CSV Data Pipeline</span>
+                            </div>
+                        </div>
+                        <div class="pt-4 mt-4 border-t border-burgundy/10 flex items-center justify-between text-xs text-gray-500">
+                            <span>Group Project Co-Author</span>
+                            <span class="text-royalBlue font-medium">Air University Earth Science</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-20 bg-beige-light/80 border-t border-burgundy/15 backdrop-blur-sm">
+            <div class="max-w-4xl mx-auto px-6 text-center space-y-8">
+                <div class="inline-block px-3 py-1 rounded-full bg-royalBlue/10 text-royalBlue text-xs font-semibold tracking-wider uppercase">
+                    Get In Touch
+                </div>
+                <h2 class="font-serif text-3xl sm:text-4xl font-bold text-burgundy">Let's Build Something Exceptional</h2>
+                <p class="text-gray-700 max-w-xl mx-auto text-base">
+                    Whether you are looking for a full-stack developer intern, collaborating on advanced software projects, or discussing innovative tech ideas—my inbox is always open.
+                </p>
+                <div class="flex flex-wrap justify-center gap-4 pt-4">
+                    <a href="mailto:areebazafar196@gmail.com" class="px-8 py-4 rounded-xl bg-burgundy text-beige font-semibold shadow-lg hover:bg-burgundy-light transition-all flex items-center gap-3">
+                        <i class="fa-solid fa-envelope"></i>
+                        <span>areebazafar196@gmail.com</span>
+                    </a>
+                    <a href="https://github.com" target="_blank" class="px-8 py-4 rounded-xl border-2 border-royalBlue text-royalBlue font-semibold hover:bg-royalBlue hover:text-white transition-all flex items-center gap-3">
+                        <i class="fa-brands fa-github"></i>
+                        <span>GitHub Profile</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-beige border-t border-burgundy/15 py-8 text-center text-xs text-gray-600">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <p>© 2026 Areeba Zafar • Air University BSCS (5th Semester). All rights reserved.</p>
+            <div class="flex gap-4 text-burgundy">
+                <a href="mailto:areebazafar196@gmail.com" class="hover:text-royalBlue transition-colors"><i class="fa-solid fa-envelope text-base"></i></a>
+                <a href="https://github.com" target="_blank" class="hover:text-royalBlue transition-colors"><i class="fa-brands fa-github text-base"></i></a>
+                <a href="https://linkedin.com" target="_blank" class="hover:text-royalBlue transition-colors"><i class="fa-brands fa-linkedin text-base"></i></a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
