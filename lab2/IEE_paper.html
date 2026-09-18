@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IEEE Paper Template</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: #e9eaec;
+            font-family: "Times New Roman", Times, serif;
+            color: #111;
+            line-height: 1.25;
+        }
+
+        .toolbar {
+            width: 100%;
+            background: #1f2937;
+            color: white;
+            padding: 14px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: Arial, sans-serif;
+        }
+
+        .toolbar-title {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .toolbar-badge {
+            font-size: 12px;
+            background: #374151;
+            padding: 6px 12px;
+            border-radius: 20px;
+        }
+
+        .paper {
+            width: 210mm;
+            min-height: 297mm;
+            margin: 35px auto;
+            padding: 18mm 17mm;
+            background: white;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .paper-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .paper-title {
+            font-size: 24px;
+            font-weight: bold;
+            line-height: 1.15;
+            margin-bottom: 16px;
+        }
+
+        .authors {
+            display: flex;
+            justify-content: center;
+            gap: 35px;
+            margin-bottom: 5px;
+            font-size: 12px;
+        }
+
+        .author {
+            text-align: center;
+            line-height: 1.4;
+        }
+
+        .author-name {
+            font-weight: bold;
+        }
+
+        .affiliation {
+            font-size: 11px;
+        }
+
+        .email {
+            font-size: 10px;
+        }
+
+        .rule {
+            border: none;
+            border-top: 1px solid #222;
+            margin: 16px 0;
+        }
+
+        .abstract {
+            font-size: 10px;
+            text-align: justify;
+            margin-bottom: 7px;
+        }
+
+        .abstract strong {
+            font-style: italic;
+        }
+
+        .keywords {
+            font-size: 10px;
+            margin-bottom: 20px;
+        }
+
+        .keywords strong {
+            font-style: italic;
+        }
+
+        .columns {
+            column-count: 2;
+            column-gap: 18px;
+        }
+
+        .section {
+            break-inside: avoid;
+            margin-bottom: 15px;
+        }
+
+        .section h2 {
+            text-align: center;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 7px;
+        }
+
+        .section h2 span {
+            font-weight: normal;
+        }
+
+        .section p {
+            font-size: 10px;
+            text-align: justify;
+            margin-bottom: 7px;
+        }
+
+        .subsection {
+            font-size: 10px;
+            font-weight: bold;
+            margin: 8px 0 4px;
+        }
+
+        .figure {
+            margin: 12px 0;
+            break-inside: avoid;
+            text-align: center;
+        }
+
+        .figure-box {
+            height: 105px;
+            border: 1px solid #555;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fafafa;
+            font-family: Arial, sans-serif;
+            font-size: 11px;
+            color: #777;
+        }
+
+        .caption {
+            font-size: 9px;
+            margin-top: 4px;
+        }
+
+        .table-container {
+            margin: 12px 0;
+            break-inside: avoid;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 9px;
+        }
+
+        th,
+        td {
+            border: 1px solid #555;
+            padding: 4px;
+            text-align: center;
+        }
+
+        th {
+            font-weight: bold;
+            background: #f2f2f2;
+        }
+
+        .table-caption {
+            text-align: center;
+            font-size: 9px;
+            margin-bottom: 5px;
+        }
+
+        .equation {
+            text-align: center;
+            font-size: 11px;
+            margin: 12px 0;
+        }
+
+        .references {
+            font-size: 9px;
+        }
+
+        .references p {
+            font-size: 9px;
+            text-align: left;
+            padding-left: 22px;
+            text-indent: -22px;
+            margin-bottom: 5px;
+        }
+
+        .footer {
+            margin-top: 20px;
+            border-top: 1px solid #222;
+            padding-top: 6px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 8px;
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+
+            .toolbar {
+                display: none;
+            }
+
+            .paper {
+                margin: 0;
+                box-shadow: none;
+            }
+        }
+
+        @media (max-width: 850px) {
+            body {
+                background: #e9eaec;
+            }
+
+            .paper {
+                width: 95%;
+                min-height: auto;
+                margin: 20px auto;
+                padding: 35px 30px;
+            }
+
+            .authors {
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .toolbar {
+                padding: 12px 16px;
+            }
+
+            .paper {
+                width: 100%;
+                margin: 0;
+                padding: 25px 20px;
+                box-shadow: none;
+            }
+
+            .paper-title {
+                font-size: 20px;
+            }
+
+            .authors {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .columns {
+                column-count: 1;
+            }
+
+            .section h2 {
+                font-size: 13px;
+            }
+
+            .section p {
+                font-size: 11px;
+            }
+
+            .abstract,
+            .keywords {
+                font-size: 11px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="toolbar">
+        <div class="toolbar-title">IEEE Research Paper Template</div>
+        <div class="toolbar-badge">Conference Paper</div>
+    </div>
+
+    <main class="paper">
+
+        <header class="paper-header">
+
+            <h1 class="paper-title">
+                TITLE OF YOUR RESEARCH PAPER
+            </h1>
+
+            <div class="authors">
+
+                <div class="author">
+                    <div class="author-name">Areeba Zafar</div>
+                    <div class="affiliation">Department of Computer Science</div>
+                    <div class="affiliation">AIR UNIVERSITY</div>
+                    <div class="email">areebazafar196@gmail.com</div>
+                </div>
+
+                <div class="author">
+                    <div class="author-name">Kainat Hameed</div>
+                    <div class="affiliation">Department of Computer Science</div>
+                    <div class="affiliation">QAU University</div>
+                    <div class="email">kainathameed@gmail.com</div>
+                </div>
+
+                <div class="author">
+                    <div class="author-name">Hammad Ali</div>
+                    <div class="affiliation">Department of Computer Science</div>
+                    <div class="affiliation">FAST UNIVERSITY</div>
+                    <div class="email">hammadali@gmail.com</div>
+                </div>
+
+            </div>
+
+        </header>
+
+        <hr class="rule">
+
+        <div class="abstract">
+            <strong>Abstract—</strong>
+            This paper presents a concise overview of the proposed research,
+            including its objectives, methodology, major findings, and potential
+            applications. Replace this text with the abstract of your research paper.
+        </div>
+
+        <div class="keywords">
+            <strong>Index Terms—</strong>
+            Research, Computer Science, Technology, Algorithms, Machine Learning
+        </div>
+
+        <div class="columns">
+
+            <section class="section">
+                <h2>I. INTRODUCTION</h2>
+
+                <p>
+                    The introduction provides background information about the
+                    research topic and explains the motivation behind the study.
+                    It should clearly describe the problem being addressed and
+                    establish the importance of the proposed work.
+                </p>
+
+                <p>
+                    This section may also present the research objectives,
+                    contributions, and an overview of the remaining sections
+                    of the paper.
+                </p>
+            </section>
+
+            <section class="section">
+                <h2>II. RELATED WORK</h2>
+
+                <p>
+                    Previous studies related to the selected research area are
+                    discussed in this section. Existing approaches, techniques,
+                    and limitations should be reviewed and compared.
+                </p>
+
+                <p>
+                    The discussion should identify the research gap that the
+                    proposed work intends to address.
+                </p>
+            </section>
+
+            <section class="section">
+                <h2>III. METHODOLOGY</h2>
+
+                <p>
+                    This section describes the methodology used to conduct the
+                    research. Explain the system design, data collection,
+                    algorithms, tools, and procedures used during the study.
+                </p>
+
+                <div class="subsection">
+                    A. System Design
+                </div>
+
+                <p>
+                    Describe the overall architecture and major components of
+                    the proposed system.
+                </p>
+
+                <div class="figure">
+                    <div class="figure-box">
+                        System Architecture / Diagram
+                    </div>
+                    <div class="caption">
+                        Fig. 1. Overview of the proposed system.
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    B. Proposed Approach
+                </div>
+
+                <p>
+                    Explain the proposed approach and the steps followed to
+                    achieve the research objectives.
+                </p>
+            </section>
+
+            <section class="section">
+                <h2>IV. RESULTS</h2>
+
+                <p>
+                    The results obtained from the experiments or evaluation are
+                    presented in this section. Use tables, figures, and relevant
+                    measurements to clearly communicate the findings.
+                </p>
+
+                <div class="table-container">
+                    <div class="table-caption">
+                        TABLE I<br>
+                        SAMPLE PERFORMANCE RESULTS
+                    </div>
+
+                    <table>
+                        <tr>
+                            <th>Method</th>
+                            <th>Accuracy</th>
+                            <th>Time</th>
+                        </tr>
+                        <tr>
+                            <td>Method A</td>
+                            <td>92%</td>
+                            <td>1.20 s</td>
+                        </tr>
+                        <tr>
+                            <td>Method B</td>
+                            <td>95%</td>
+                            <td>0.98 s</td>
+                        </tr>
+                        <tr>
+                            <td>Proposed</td>
+                            <td>97%</td>
+                            <td>0.75 s</td>
+                        </tr>
+                    </table>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>V. DISCUSSION</h2>
+
+                <p>
+                    The results are analyzed and interpreted in this section.
+                    Discuss the performance of the proposed method and compare
+                    the findings with existing approaches.
+                </p>
+
+                <p>
+                    Any limitations, observations, or factors affecting the
+                    results should also be discussed.
+                </p>
+            </section>
+
+            <section class="section">
+                <h2>VI. CONCLUSION</h2>
+
+                <p>
+                    This paper presented a proposed approach for addressing the
+                    selected research problem. The findings demonstrate the
+                    potential of the approach and provide a foundation for
+                    further research.
+                </p>
+
+                <p>
+                    Future work may focus on improving performance, expanding
+                    the dataset, and evaluating the system in additional
+                    environments.
+                </p>
+            </section>
+
+            <section class="section references">
+                <h2>REFERENCES</h2>
+
+                <p>
+                    [1] A. Author, “Title of the referenced research paper,”
+                    Journal or Conference Name, vol. 1, no. 1, pp. 1–10, 2025.
+                </p>
+
+                <p>
+                    [2] B. Author and C. Author, “Research paper title,”
+                    IEEE Conference, pp. 20–25, 2024.
+                </p>
+
+                <p>
+                    [3] D. Author, Book Title, Publisher, 2023.
+                </p>
+
+                <p>
+                    [4] E. Author, “Article title,” IEEE Access, vol. 10,
+                    pp. 100–110, 2022.
+                </p>
+            </section>
+
+        </div>
+
+        <footer class="footer">
+            <span>IEEE Research Paper Template</span>
+            <span>Page 1</span>
+        </footer>
+
+    </main>
+
+</body>
+</html>
