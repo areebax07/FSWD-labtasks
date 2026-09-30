@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Areeba Zafar | Portfolio - BSCS 5th Semester</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --bg-base: #F5EFEB;
+            --card-bg: #F3EAE1;
+            --card-inner: #FCFAF7;
+            --burgundy: #581845;
+            --burgundy-light: #7A285E;
+            --royal-blue: #1E3A8A;
+            --royal-blue-light: #3B82F6;
+            --text-main: #2D3748;
+            --text-muted: #4A5568;
+            --border-color: #E2D3C1;
+        }
+
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        a { text-decoration: none; color: inherit; }
+
+        /* Header / Navbar */
+        .navbar {
+            background: rgba(245, 239, 235, 0.92) !important;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+        }
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--burgundy);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .logo span {
+            width: 8px;
+            height: 8px;
+            background-color: var(--royal-blue);
+            border-radius: 50%;
+        }
+        .navbar-nav .nav-link {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            transition: color 0.2s;
+        }
+        .navbar-nav .nav-link:hover, .navbar-nav .nav-link.active {
+            color: var(--burgundy);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            padding: 6rem 0 4rem;
+        }
+        .badge-custom {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.35rem 0.85rem;
+            background: rgba(30, 58, 138, 0.08);
+            color: var(--royal-blue);
+            font-size: 0.75rem;
+            font-weight: 600;
+            border-radius: 99px;
+            border: 1px solid rgba(30, 58, 138, 0.15);
+            margin-bottom: 1.25rem;
+        }
+        .hero-content h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.75rem, 4.5vw, 3.75rem);
+            color: var(--burgundy);
+            line-height: 1.2;
+            margin-bottom: 1.25rem;
+        }
+        .hero-content h1 span { color: var(--royal-blue); font-style: italic; }
+        .hero-content p { color: var(--text-muted); font-size: 1.05rem; margin-bottom: 2rem; line-height: 1.7; }
+
+        .btn-primary-custom, .btn-secondary-custom {
+            padding: 0.85rem 1.75rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+        .btn-primary-custom { background: var(--burgundy); color: #fff; box-shadow: 0 4px 12px rgba(88, 24, 69, 0.25); border: none; }
+        .btn-primary-custom:hover { background: var(--burgundy-light); color: #fff; transform: translateY(-2px); }
+        .btn-secondary-custom { border: 2px solid var(--royal-blue); color: var(--royal-blue); background: transparent; }
+        .btn-secondary-custom:hover { background: var(--royal-blue); color: #fff; transform: translateY(-2px); }
+
+        /* Profile Card Graphic */
+        .profile-card-container {
+            position: relative;
+            width: 280px;
+            height: 320px;
+            margin: 0 auto;
+        }
+        .profile-card-bg1 {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--burgundy), var(--royal-blue));
+            border-radius: 1.5rem;
+            transform: rotate(4deg);
+            opacity: 0.15;
+        }
+        .profile-card-bg2 {
+            position: absolute;
+            inset: 0;
+            background: var(--card-inner);
+            border-radius: 1.5rem;
+            transform: rotate(-2deg);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+        }
+        .profile-card-inner {
+            position: absolute;
+            inset: 0;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .profile-avatar {
+            width: 85px;
+            height: 85px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--burgundy), var(--royal-blue));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 2.25rem;
+            margin-bottom: 1.25rem;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.12);
+            border: 3px solid var(--card-inner);
+        }
+        .profile-card-inner h3 { font-family: 'Playfair Display', serif; color: var(--burgundy); font-size: 1.25rem; margin-bottom: 0.25rem; }
+        .profile-card-inner p { font-size: 0.8rem; color: var(--royal-blue); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.75rem; }
+        .profile-divider { width: 40px; height: 2px; background: var(--border-color); margin: 0.5rem 0; }
+        .profile-sub { font-size: 0.8rem; color: var(--text-muted); }
+
+        /* Section Layout */
+        .section-container {
+            padding: 5rem 0;
+        }
+        .section-header {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 3.5rem;
+        }
+        .section-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--burgundy);
+            margin-bottom: 0.75rem;
+        }
+        .section-header p { color: var(--text-muted); font-size: 0.95rem; }
+
+        /* Skills Section */
+        .skill-card {
+            background: var(--card-bg);
+            border-radius: 1rem;
+            padding: 2rem;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            transition: transform 0.2s, box-shadow 0.2s;
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+        }
+        .skill-card:hover { transform: translateY(-4px); box-shadow: 0 10px 20px rgba(0,0,0,0.06); }
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 4px;
+        }
+        .skill-card.burgundy-accent::before { background: var(--burgundy); }
+        .skill-card.blue-accent::before { background: var(--royal-blue); }
+
+        .skill-icon {
+            width: 3.25rem;
+            height: 3.25rem;
+            border-radius: 0.85rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.35rem;
+            margin-bottom: 1.25rem;
+            color: #fff;
+        }
+        .skill-card.burgundy-accent .skill-icon { background: var(--burgundy); }
+        .skill-card.blue-accent .skill-icon { background: var(--royal-blue); }
+
+        .skill-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+        .skill-card.burgundy-accent h3 { color: var(--burgundy); }
+        .skill-card.blue-accent h3 { color: var(--royal-blue); }
+        .skill-card p { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.25rem; line-height: 1.5; }
+
+        .tags-list { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .tag-b { background: rgba(88, 24, 69, 0.08); color: var(--burgundy); padding: 0.3rem 0.65rem; font-size: 0.75rem; border-radius: 6px; font-weight: 500; }
+        .tag-bl { background: rgba(30, 58, 138, 0.08); color: var(--royal-blue); padding: 0.3rem 0.65rem; font-size: 0.75rem; border-radius: 6px; font-weight: 500; }
+
+        /* Projects Section */
+        .project-card {
+            background: var(--card-bg);
+            border-radius: 1.25rem;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            transition: transform 0.2s, box-shadow 0.2s;
+            height: 100%;
+        }
+        .project-card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.08); }
+
+        .project-left-pane {
+            padding: 2.5rem 2rem;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 2rem;
+            height: 100%;
+        }
+        .banner-burgundy { background: linear-gradient(135deg, var(--burgundy), var(--burgundy-light)); }
+        .banner-blue { background: linear-gradient(135deg, #1E3A8A, #172554); }
+        .banner-dark { background: linear-gradient(135deg, var(--burgundy), #3A0F2D, var(--royal-blue)); }
+
+        .project-category-tag {
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 0.25rem 0.75rem;
+            border-radius: 99px;
+            width: fit-content;
+        }
+        .project-left-pane h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            line-height: 1.25;
+        }
+        .project-bullet-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+        .project-bullet-list li {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .project-bullet-list i { font-size: 0.75rem; }
+
+        .project-right-pane {
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 1.5rem;
+            background: var(--card-bg);
+            height: 100%;
+        }
+        .project-right-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        .project-subtag {
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--royal-blue);
+        }
+        .project-stars { color: #D97706; font-size: 0.8rem; display: flex; gap: 2px; }
+        .project-right-pane h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.35rem;
+            color: var(--burgundy);
+            margin-top: 0.25rem;
+        }
+        .project-right-pane p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+        .project-tech-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
+        .project-tech-pill {
+            background: rgba(88, 24, 69, 0.08);
+            color: var(--burgundy);
+            padding: 0.25rem 0.6rem;
+            font-size: 0.75rem;
+            border-radius: 6px;
+            font-weight: 500;
+        }
+        .project-meta-footer {
+            border-top: 1px solid var(--border-color);
+            padding-top: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* Contact Section */
+        .contact-box {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 1.5rem;
+            padding: 4rem 2rem;
+            text-align: center;
+            max-width: 750px;
+            margin: 0 auto;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.03);
+        }
+        .contact-box h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.25rem;
+            color: var(--burgundy);
+            margin-bottom: 1rem;
+        }
+        .contact-box p { color: var(--text-muted); font-size: 1rem; max-width: 500px; margin: 0 auto 2rem; }
+
+        /* Footer */
+        footer {
+            background-color: var(--bg-base);
+            border-top: 1px solid var(--border-color);
+            padding: 2.5rem 0;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+        .social-links { display: flex; gap: 1.25rem; font-size: 1.1rem; color: var(--burgundy); }
+        .social-links a:hover { color: var(--royal-blue); }
+    </style>
+</head>
+<body>
+
+    <!-- Header / Navbar -->
+    <header>
+        <nav class="navbar navbar-expand-lg fixed-top">
+            <div class="container">
+                <a href="#" class="navbar-brand logo">
+                    <span></span> Areeba Zafar
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                    <ul class="navbar-nav gap-lg-4">
+                        <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="about" class="hero-section">
+        <div class="container">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-7 hero-content text-lg-start text-center">
+                    <div class="badge-custom">
+                        <i class="fa-solid fa-graduation-cap"></i> Air University • BSCS 5th Semester
+                    </div>
+                    <h1>Full-Stack Developer & <span>Software Engineer</span></h1>
+                    <p class="mx-auto mx-lg-0">Hi, I'm <strong>Areeba Zafar</strong>. I craft robust full-stack enterprise web platforms, spatial hazard portals, and efficient data processing pipelines with a refined aesthetic sense.</p>
+                    <div class="hero-actions d-flex gap-3 justify-content-center justify-content-lg-start">
+                        <a href="#projects" class="btn-primary-custom">
+                            <span>Explore Projects</span>
+                            <i class="fa-solid fa-arrow-right" style="font-size: 0.75rem;"></i>
+                        </a>
+                        <a href="#contact" class="btn-secondary-custom">Let's Connect</a>
+                    </div>
+                </div>
+
+                <div class="col-lg-5 hero-graphic">
+                    <div class="profile-card-container">
+                        <div class="profile-card-bg1"></div>
+                        <div class="profile-card-bg2"></div>
+                        <div class="profile-card-inner">
+                            <div class="profile-avatar">
+                                <i class="fa-solid fa-user-gear"></i>
+                            </div>
+                            <h3>Areeba Zafar</h3>
+                            <p>BSCS • 5th Semester</p>
+                            <div class="profile-divider"></div>
+                            <span class="profile-sub">Air University Islamabad</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <div class="section-container" id="skills">
+        <div class="container">
+            <div class="section-header">
+                <h2>Technical Expertise</h2>
+                <p>Comprehensive toolkit spanning full-stack web development, enterprise systems, programming languages, and databases.</p>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-3">
+                    <div class="skill-card burgundy-accent">
+                        <div class="skill-icon">
+                            <i class="fa-solid fa-laptop-code"></i>
+                        </div>
+                        <h3>Full-Stack Web</h3>
+                        <p>Specialized in building end-to-end interactive web apps with modern frameworks and backends.</p>
+                        <div class="tags-list">
+                            <span class="tag-b">HTML5 & CSS3</span>
+                            <span class="tag-b">JavaScript / TypeScript</span>
+                            <span class="tag-b">React & Next.js</span>
+                            <span class="tag-b">Node.js & NestJS</span>
+                            <span class="tag-b">Blazor</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-3">
+                    <div class="skill-card blue-accent">
+                        <div class="skill-icon">
+                            <i class="fa-solid fa-code"></i>
+                        </div>
+                        <h3>Languages & System</h3>
+                        <p>Core languages, multi-paradigm development, mobile apps, and system-level applications.</p>
+                        <div class="tags-list">
+                            <span class="tag-bl">C# (.NET)</span>
+                            <span class="tag-bl">Dart & Flutter</span>
+                            <span class="tag-bl">Python</span>
+                            <span class="tag-bl">C++</span>
+                            <span class="tag-bl">8086 Assembly</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-3">
+                    <div class="skill-card burgundy-accent">
+                        <div class="skill-icon">
+                            <i class="fa-solid fa-database"></i>
+                        </div>
+                        <h3>Databases & Data</h3>
+                        <p>Enterprise database engines, object-relational mapping, and cloud backends.</p>
+                        <div class="tags-list">
+                            <span class="tag-b">ADO.NET</span>
+                            <span class="tag-b">SSMS (SQL Server)</span>
+                            <span class="tag-b">Supabase</span>
+                            <span class="tag-b">Firebase</span>
+                            <span class="tag-b">SQL / Queries</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-3">
+                    <div class="skill-card blue-accent">
+                        <div class="skill-icon">
+                            <i class="fa-solid fa-screwdriver-wrench"></i>
+                        </div>
+                        <h3>Tools & Environments</h3>
+                        <p>Development suites, emulators, version control, and networking utilities.</p>
+                        <div class="tags-list">
+                            <span class="tag-bl">Visual Studio & VS Code</span>
+                            <span class="tag-bl">SSMS Studio</span>
+                            <span class="tag-bl">Android Studio</span>
+                            <span class="tag-bl">EMU8086</span>
+                            <span class="tag-bl">Cisco Packet Tracer</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Projects Section -->
+    <div class="section-container" id="projects">
+        <div class="container">
+            <div class="section-header">
+                <span style="font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--burgundy); background: rgba(88,24,69,0.08); padding: 0.25rem 0.75rem; border-radius: 99px;">Portfolio Showcase</span>
+                <h2 class="mt-2">Major Projects</h2>
+                <p>A detailed collection of sophisticated systems, data processing tools, and full-stack web applications developed during academic semesters.</p>
+            </div>
+
+            <div class="row g-4 justify-content-center">
+                <!-- Project 1 -->
+                <div class="col-lg-10">
+                    <div class="project-card">
+                        <div class="row g-0 h-100">
+                            <div class="col-md-5">
+                                <div class="project-left-pane banner-burgundy">
+                                    <span class="project-category-tag">Smart City Architecture</span>
+                                    <h3>NexaCity Management System</h3>
+                                    <ul class="project-bullet-list">
+                                        <li><i class="fa-solid fa-circle-check"></i> Blazor Web Components</li>
+                                        <li><i class="fa-solid fa-circle-check"></i> ADO.NET Data Layer</li>
+                                        <li><i class="fa-solid fa-circle-check"></i> Windows Forms Modules</li>
+                                        <li><i class="fa-solid fa-circle-check"></i> SSMS Database Backend</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-7">
+                                <div class="project-right-pane">
+                                    <div>
+                                        <div class="project-right-header">
+                                            <div>
+                                                <span class="project-subtag">Full-Stack Enterprise Solution</span>
+                                                <h4>NexaCity Smart Infrastructure Hub</h4>
+                                            </div>
+                                            <div class="project-stars">
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                            </div>
+                                        </div>
+                                        <p class="mt-3">A comprehensive multi-module smart city management platform engineered with a robust architecture. Features interactive Blazor web interfaces, dynamic Windows Forms modules for admin control, and ADO.NET communicating directly with MS SQL Server Management Studio.</p>
+                                    </div>
+                                    <div>
+                                        <div class="project-tech-pills mb-3">
+                                            <span class="project-tech-pill">C# / .NET</span>
+                                            <span class="project-tech-pill">Blazor</span>
+                                            <span class="project-tech-pill">ADO.NET</span>
+                                            <span class="project-tech-pill">SSMS</span>
+                                        </div>
+                                        <div class="project-meta-footer">
+                                            <span>Enterprise Smart Infrastructure Solution</span>
+                                            <span style="color: var(--burgundy); font-weight: 600;">Air University Project</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="col-lg-10">
+                    <div class="project-card">
+                        <div class="row g-0 h-100">
+                            <div class="col-md-5">
+                                <div class="project-left-pane banner-blue">
+                                    <span class="project-category-tag">Spatial GIS System</span>
+                                    <h3>Disaster Management Portal</h3>
+                                    <ul class="project-bullet-list">
+                                        <li><i class="fa-solid fa-circle-check"></i> Real-time Live Alerts</li>
+                                        <li><i class="fa-solid fa-circle-check"></i> GeoJSON Spatial Layers</li>
+                                        <li><i class="fa-solid fa-circle-check"></i> Citizen Incident Reporting</li>
+                                        <li><i class="fa-solid fa-circle-check"></i> GPS Coordinate Tracking</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-7">
+                                <div class="project-right-pane">
+                                    <div>
+                                        <div class="project-right-header">
+                                            <div>
+                                                <span class="project-subtag">Emergency Safety Intelligence</span>
+                                                <h4>Disaster Hazard & Response Feed</h4>
+                                            </div>
+                                            <div class="project-stars">
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                            </div>
+                                        </div>
+                                        <p class="mt-3">Advanced emergency safety intelligence platform integrating real-time live alert feeds, GeoJSON spatial data layers, and a dedicated citizen reporting portal utilizing precise device GPS coordinates for rapid hazard analysis.</p>
+                                    </div>
+                                    <div>
+                                        <div class="project-tech-pills mb-3">
+                                            <span class="project-tech-pill" style="background: rgba(30,58,138,0.08); color: var(--royal-blue);">Supabase</span>
+                                            <span class="project-tech-pill" style="background: rgba(30,58,138,0.08); color: var(--royal-blue);">Python</span>
+                                            <span class="project-tech-pill" style="background: rgba(30,58,138,0.08); color: var(--royal-blue);">Satpy</span>
+                                            <span class="project-tech-pill" style="background: rgba(30,58,138,0.08); color: var(--royal-blue);">NetCDF</span>
+                                            <span class="project-tech-pill" style="background: rgba(30,58,138,0.08); color: var(--royal-blue);">Leaflet Maps</span>
+                                            <span class="project-tech-pill" style="background: rgba(30,58,138,0.08); color: var(--royal-blue);">GIS Mapping</span>
+                                            <span class="project-tech-pill" style="background: rgba(30,58,138,0.08); color: var(--royal-blue);">WebSockets</span>
+                                            <span class="project-tech-pill" style="background: rgba(30,58,138,0.08); color: var(--royal-blue);">JavaScript</span>
+                                        </div>
+                                        <div class="project-meta-footer">
+                                            <span>NASTP SATMET</span>
+                                            <span style="color: var(--royal-blue); font-weight: 600;">Web Platform</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="col-lg-10">
+                    <div class="project-card">
+                        <div class="row g-0 h-100">
+                            <div class="col-md-5">
+                                <div class="project-left-pane banner-dark">
+                                    <span class="project-category-tag">Remote Sensing Tool</span>
+                                    <h3>Satellite Weather Visualizer</h3>
+                                    <ul class="project-bullet-list">
+                                        <li><i class="fa-solid fa-circle-check"></i> EUMETSAT SEVIRI Support</li>
+                                        <li><i class="fa-solid fa-circle-check"></i> NetCDF (.nc) Dataset Ingestion</li>
+                                        <li><i class="fa-solid fa-circle-check"></i> Multispectral RGB Composites</li>
+                                        <li><i class="fa-solid fa-circle-check"></i> Satpy Processing Pipeline</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-7">
+                                <div class="project-right-pane">
+                                    <div>
+                                        <div class="project-right-header">
+                                            <div>
+                                                <span class="project-subtag">Meteorological Data Pipeline</span>
+                                                <h4>Satellite Payload Hazard Engine</h4>
+                                            </div>
+                                            <div class="project-stars">
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                            </div>
+                                        </div>
+                                        <p class="mt-3">High-performance satellite data processing pipeline ingesting raw EUMETSAT SEVIRI payload files (.nat) and NetCDF (.nc) datasets to render multispectral RGB composites onto interactive maps using Satpy.</p>
+                                    </div>
+                                    <div>
+                                        <div class="project-tech-pills mb-3">
+                                            <span class="project-tech-pill">Python</span>
+                                            <span class="project-tech-pill">Satpy</span>
+                                            <span class="project-tech-pill">NetCDF</span>
+                                            <span class="project-tech-pill">Leaflet Maps</span>
+                                        </div>
+                                        <div class="project-meta-footer">
+                                            <span>Meteorology Research</span>
+                                            <span style="color: var(--burgundy); font-weight: 600;">Data Processing</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 4 -->
+                <div class="col-lg-10">
+                    <div class="project-card">
+                        <div class="row g-0 h-100">
+                            <div class="col-md-5">
+                                <div class="project-left-pane banner-blue">
+                                    <span class="project-category-tag">E-Commerce Web App</span>
+                                    <h3>Aura & Essence Boutique</h3>
+                                    <ul class="project-bullet-list">
+                                        <li><i class="fa-solid fa-circle-check"></i> Scent-Note Product Filtering</li>
+                                        <li><i class="fa-solid fa-circle-check"></i> User Authentication</li>
+                                        <li><i class="fa-solid fa-circle-check"></i> Secure Cart State Management</li>
+                                        <li><i class="fa-solid fa-circle-check"></i> Real-time Firebase Sync</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-7">
+                                <div class="project-right-pane">
+                                    <div>
+                                        <div class="project-right-header">
+                                            <div>
+                                                <span class="project-subtag">Luxury Fragrance Platform</span>
+                                                <h4>Aura & Essence E-Commerce Hub</h4>
+                                            </div>
+                                            <div class="project-stars">
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                            </div>
+                                        </div>
+                                        <p class="mt-3">Luxury fragrance e-commerce web platform featuring intuitive scent-note product filtering, secure user authentication, cart state management, and real-time backend synchronization using Supabase and Firebase.</p>
+                                    </div>
+                                    <div>
+                                        <div class="project-tech-pills mb-3">
+                                            <span class="project-tech-pill" style="background: rgba(30,58,138,0.08); color: var(--royal-blue);">React</span>
+                                            <span class="project-tech-pill" style="background: rgba(30,58,138,0.08); color: var(--royal-blue);">Supabase</span>
+                                            <span class="project-tech-pill" style="background: rgba(30,58,138,0.08); color: var(--royal-blue);">Firebase</span>
+                                        </div>
+                                        <div class="project-meta-footer">
+                                            <span>Full-Stack Web Application</span>
+                                            <span style="color: var(--royal-blue); font-weight: 600;">Full-Stack React</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 5 -->
+                <div class="col-lg-10">
+                    <div class="project-card">
+                        <div class="row g-0 h-100">
+                            <div class="col-md-5">
+                                <div class="project-left-pane banner-burgundy">
+                                    <span class="project-category-tag">Geoscience Analytics</span>
+                                    <h3>Geophysical IP Processor</h3>
+                                    <ul class="project-bullet-list">
+                                        <li><i class="fa-solid fa-circle-check"></i> Survey CSV Ingestion</li>
+                                        <li><i class="fa-solid fa-circle-check"></i> Chargeability Calculations</li>
+                                        <li><i class="fa-solid fa-circle-check"></i> Mineral Drill Target Evaluation</li>
+                                        <li><i class="fa-solid fa-circle-check"></i> Automated LaTeX Report Gen</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-7">
+                                <div class="project-right-pane">
+                                    <div>
+                                        <div class="project-right-header">
+                                            <div>
+                                                <span class="project-subtag">Earth Science Data Pipeline</span>
+                                                <h4>Induced Polarization Analytics</h4>
+                                            </div>
+                                            <div class="project-stars">
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                            </div>
+                                        </div>
+                                        <p class="mt-3">Specialized Python data processing script built to analyze Induced Polarization (IP) survey CSV files, computing chargeability and percent frequency effect (PFE) to evaluate mineral drill targets into professional LaTeX reports.</p>
+                                    </div>
+                                    <div>
+                                        <div class="project-tech-pills mb-3">
+                                            <span class="project-tech-pill">Python</span>
+                                            <span class="project-tech-pill">LaTeX</span>
+                                            <span class="project-tech-pill">Data Analytics</span>
+                                        </div>
+                                        <div class="project-meta-footer">
+                                            <span>Earth Science Data Pipelines</span>
+                                            <span style="color: var(--burgundy); font-weight: 600;">Python Scripting</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 6 -->
+                <div class="col-lg-10">
+                    <div class="project-card">
+                        <div class="row g-0 h-100">
+                            <div class="col-md-5">
+                                <div class="project-left-pane banner-blue">
+                                    <span class="project-category-tag">Agro-Meteorology</span>
+                                    <h3>Farm Weather Intelligence</h3>
+                                    <ul class="project-bullet-list">
+                                        <li><i class="fa-solid fa-circle-check"></i> GFS Model Parameter Ingestion</li>
+                                        <li><i class="fa-solid fa-circle-check"></i> WRF Climate Forecasting</li>
+                                        <li><i class="fa-solid fa-circle-check"></i> Farm Zone Climate Tracking</li>
+                                        <li><i class="fa-solid fa-circle-check"></i> REST API Data Synchronization</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-7">
+                                <div class="project-right-pane">
+                                    <div>
+                                        <div class="project-right-header">
+                                            <div>
+                                                <span class="project-subtag">Climate Intelligence System</span>
+                                                <h4>Agricultural Weather Feed</h4>
+                                            </div>
+                                            <div class="project-stars">
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                            </div>
+                                        </div>
+                                        <p class="mt-3">Targeted agricultural weather analytics platform processing Global Forecast System (GFS) and Weather Research and Forecasting (WRF) model parameters specifically optimized for agricultural farm zone climate tracking.</p>
+                                    </div>
+                                    <div>
+                                        <div class="project-tech-pills mb-3">
+                                            <span class="project-tech-pill" style="background: rgba(30,58,138,0.08); color: var(--royal-blue);">Python</span>
+                                            <span class="project-tech-pill" style="background: rgba(30,58,138,0.08); color: var(--royal-blue);">REST APIs</span>
+                                            <span class="project-tech-pill" style="background: rgba(30,58,138,0.08); color: var(--royal-blue);">WRF / GFS</span>
+                                        </div>
+                                        <div class="project-meta-footer">
+                                            <span>Agro-Meteo System</span>
+                                            <span style="color: var(--royal-blue); font-weight: 600;">Analytics Portal</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Section -->
+    <div class="section-container" id="contact">
+        <div class="container">
+            <div class="contact-box">
+                <h2>Let's Connect</h2>
+                <p>Looking for a full-stack developer intern, collaboration on advanced software projects, or technical discussions? My inbox is always open.</p>
+                <div class="contact-actions d-flex justify-content-center gap-3 flex-wrap">
+                    <a href="mailto:areebazafar196@gmail.com" class="btn-primary-custom">
+                        <i class="fa-solid fa-envelope"></i> Email Me
+                    </a>
+                    <a href="https://github.com" target="_blank" class="btn-secondary-custom">
+                        <i class="fa-brands fa-github"></i> GitHub Profile
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row align-items-center gy-3 text-center text-md-start">
+                <div class="col-md-8">
+                    <p class="mb-0">© 2026 Areeba Zafar • Air University BSCS (5th Semester). All rights reserved.</p>
+                </div>
+                <div class="col-md-4 d-flex justify-content-center justify-content-md-end">
+                    <div class="social-links">
+                        <a href="mailto:areebazafar196@gmail.com"><i class="fa-solid fa-envelope"></i></a>
+                        <a href="https://github.com" target="_blank"><i class="fa-brands fa-github"></i></a>
+                        <a href="https://linkedin.com" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
