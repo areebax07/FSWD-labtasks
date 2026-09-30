@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aura & Amethyst | Luxury Jewelry Store</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --smoked-plum: #5e435b;
+            --smoked-plum-rgb: 94, 67, 91;
+            --oatstone: #d7c8b2;
+            --pistachio: #b8c985;
+            --pistachio-dark: #9ab06b;
+            --bg-light: #fbf9f6;
+            --text-dark: #2c222b;
+            --white: #ffffff;
+            --shadow: 0 14px 35px rgba(94, 67, 91, 0.09);
+            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4, .brand-title {
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        /* --- STATE CONTROLS (CSS-only modals) --- */
+        #modal-signup:target,
+        #modal-login:target,
+        #modal-cart:target,
+        #modal-checkout:target {
+            display: flex;
+        }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(44, 34, 43, 0.65);
+            backdrop-filter: blur(6px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content, .cart-container, .checkout-container {
+            background: var(--white);
+            padding: 2.8rem;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 480px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            position: relative;
+            border: 1px solid rgba(215, 200, 178, 0.6);
+        }
+
+        .cart-container, .checkout-container {
+            max-width: 700px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1.2rem;
+            right: 1.5rem;
+            font-size: 1.1rem;
+            color: var(--smoked-plum);
+            text-decoration: none;
+            background: var(--bg-light);
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .modal-close:hover {
+            background: var(--smoked-plum);
+            color: var(--white);
+            transform: rotate(90deg);
+        }
+
+        /* --- NAVIGATION BAR --- */
+        .navbar {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(10px);
+            padding: 1.1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 900;
+            border-bottom: 1px solid rgba(215, 200, 178, 0.3);
+        }
+
+        .brand-logo {
+            font-size: 1.9rem;
+            font-weight: 700;
+            color: var(--smoked-plum);
+            text-decoration: none;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            font-size: 0.95rem;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: var(--smoked-plum);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after, .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--smoked-plum);
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn-icon {
+            text-decoration: none;
+            color: var(--smoked-plum);
+            background: var(--bg-light);
+            border: 1px solid var(--oatstone);
+            padding: 0.6rem 1.1rem;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            display: inline-flex;
+            gap: 0.5rem;
+            align-items: center;
+            transition: var(--transition);
+        }
+
+        .btn-icon:hover {
+            background: var(--smoked-plum);
+            color: var(--white);
+            border-color: var(--smoked-plum);
+            transform: translateY(-2px);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            background: linear-gradient(145deg, rgba(94, 67, 91, 0.94), rgba(44, 34, 43, 0.97)), 
+                        url('https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+            color: var(--white);
+            padding: 9rem 5% 8rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle, transparent 30%, rgba(0,0,0,0.4) 90%);
+        }
+
+        .hero > * {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 4.2rem;
+            margin-bottom: 1.2rem;
+            letter-spacing: 1px;
+            color: var(--oatstone);
+            font-weight: 700;
+            line-height: 1.15;
+            max-width: 900px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 680px;
+            margin-bottom: 2.5rem;
+            color: #f4f0eb;
+            font-weight: 300;
+        }
+
+        .btn-primary {
+            background: var(--pistachio);
+            color: var(--text-dark);
+            padding: 0.95rem 2.5rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 8px 25px rgba(184, 201, 133, 0.35);
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .btn-primary:hover {
+            background: var(--pistachio-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(184, 201, 133, 0.5);
+        }
+
+        /* --- INTRO & BRAND STORY HIGHLIGHTS --- */
+        .story-section {
+            max-width: 1200px;
+            margin: 6rem auto;
+            padding: 0 5%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .story-content h2 {
+            font-size: 2.8rem;
+            color: var(--smoked-plum);
+            margin-bottom: 1.2rem;
+            line-height: 1.2;
+        }
+
+        .story-content p {
+            color: #5d4f5c;
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+        }
+
+        .story-image {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--oatstone);
+        }
+
+        .story-image img {
+            width: 100%;
+            height: 420px;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .story-image:hover img {
+            transform: scale(1.04);
+        }
+
+        /* --- FEATURES BANNER --- */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 2rem;
+            max-width: 1300px;
+            margin: 5rem auto;
+            padding: 0 5%;
+        }
+
+        .feature-card {
+            background: var(--white);
+            padding: 2.5rem 2rem;
+            border-radius: 16px;
+            text-align: center;
+            border: 1px solid rgba(215, 200, 178, 0.4);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--smoked-plum);
+        }
+
+        .feature-icon {
+            font-size: 2.2rem;
+            color: var(--smoked-plum);
+            margin-bottom: 1rem;
+            background: var(--bg-light);
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--oatstone);
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            color: var(--smoked-plum);
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-card p {
+            font-size: 0.9rem;
+            color: #665564;
+        }
+
+        /* --- REVIEWS SECTION --- */
+        .reviews-section {
+            background: #f4efe9;
+            padding: 6rem 5%;
+            margin-top: 5rem;
+            border-top: 1px solid var(--oatstone);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3.5rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.8rem;
+            color: var(--smoked-plum);
+            margin-bottom: 0.6rem;
+        }
+
+        .section-header p {
+            color: #665564;
+            font-size: 1.05rem;
+        }
+
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        .review-card {
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: 16px;
+            border: 1px solid var(--oatstone);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .review-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .review-stars {
+            color: #d4af37;
+            margin-bottom: 1.2rem;
+            font-size: 0.95rem;
+        }
+
+        .review-text {
+            font-style: italic;
+            color: #4a3a48;
+            margin-bottom: 1.8rem;
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        .reviewer-info h4 {
+            font-size: 1.2rem;
+            color: var(--smoked-plum);
+        }
+
+        .reviewer-info p {
+            font-size: 0.85rem;
+            color: #887285;
+        }
+
+        /* --- CART & CHECKOUT STYLING --- */
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 0;
+            border-bottom: 1px solid var(--oatstone);
+        }
+
+        .cart-item-info h4 {
+            font-size: 1.15rem;
+            color: var(--text-dark);
+        }
+
+        .cart-item-info p {
+            color: #776174;
+            font-size: 0.9rem;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            background: var(--bg-light);
+            border: 1px solid var(--oatstone);
+            padding: 0.3rem 0.8rem;
+            border-radius: 8px;
+        }
+
+        .quantity-controls span {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .cart-summary {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 2px solid var(--smoked-plum);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cart-summary h3 {
+            font-size: 1.6rem;
+            color: var(--smoked-plum);
+        }
+
+        /* --- FORMS & INPUTS --- */
+        .form-group {
+            margin-bottom: 1.3rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.4rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--smoked-plum);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.85rem 1.1rem;
+            border: 1px solid var(--oatstone);
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            background: var(--bg-light);
+            transition: var(--transition);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--smoked-plum);
+            background: var(--white);
+            box-shadow: 0 0 0 3px rgba(94, 67, 91, 0.1);
+        }
+
+        .btn-submit {
+            width: 100%;
+            background: var(--smoked-plum);
+            color: var(--white);
+            border: none;
+            padding: 0.95rem;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 1rem;
+            font-size: 1rem;
+        }
+
+        .btn-submit:hover {
+            background: var(--text-dark);
+            transform: translateY(-1px);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background: var(--smoked-plum);
+            color: var(--oatstone);
+            padding: 4.5rem 5% 2.5rem;
+            text-align: center;
+        }
+
+        footer p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-top: 1.5rem;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.97); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.8rem; }
+            .nav-links { display: none; }
+            .story-section { grid-template-columns: 1fr; gap: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVIGATION BAR -->
+    <nav class="navbar">
+        <a href="index.html" class="brand-logo"><i class="fas fa-gem" style="color: var(--pistachio-dark);"></i> Aura & Amethyst</a>
+        <ul class="nav-links">
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="collections.html">Collections</a></li>
+            <li><a href="#reviews">Reviews</a></li>
+            <li><a href="#modal-signup">Join Club</a></li>
+        </ul>
+        <div class="nav-actions">
+            <a href="#modal-login" class="btn-icon"><i class="fas fa-user"></i> Login</a>
+            <a href="#modal-cart" class="btn-icon" style="background: var(--smoked-plum); color: var(--white); border-color: var(--smoked-plum);">
+                <i class="fas fa-shopping-bag"></i> Cart <span style="background: var(--pistachio); color: var(--text-dark); padding: 1px 6px; border-radius: 10px; font-size: 0.75rem; font-weight: 700;">2</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <header class="hero">
+        <h1>Timeless Elegance, Your Journey With Us Awaits</h1>
+        <p>Discover handcrafted artisanal jewelry designed for unforgettable moments. Experience raw luxury paired with unmatched fine craftsmanship.</p>
+        <a href="collections.html" class="btn-primary"><i class="fas fa-sparkles"></i> Explore Collections</a>
+    </header>
+
+    <!-- BRAND STORY / INTRO SECTION -->
+    <section class="story-section">
+        <div class="story-content">
+            <h2>The Art of Rare Heritage & Raw Luxury</h2>
+            <p>At Aura & Amethyst, every single piece tells a distinct story of passion, meticulous hand-cutting, and devotion to timeless beauty. We combine deep smoked plum hues with shimmering oatstone finishes and vibrant pistachio accents to craft heirloom-quality treasures.</p>
+            <p>Whether you are searching for a breathtaking bridal set or an everyday signature ring, our creations are designed to elevate your personal style with unmatched grace.</p>
+            <a href="collections.html" class="btn-primary" style="margin-top: 1rem; background: var(--smoked-plum); color: var(--white);">View Masterpieces</a>
+        </div>
+        <div class="story-image">
+            <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=800&q=80" alt="Luxury Jewelry Display">
+        </div>
+    </section>
+
+    <!-- FEATURES BANNER -->
+    <section class="features-grid">
+        <div class="feature-card">
+            <div class="feature-icon"><i class="fas fa-gem"></i></div>
+            <h3>Certified Gemstones</h3>
+            <p>Ethically sourced natural gemstones hand-selected for exceptional brilliance and clarity.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon"><i class="fas fa-hands-holding-diamond"></i></div>
+            <h3>Artisanal Handcrafting</h3>
+            <p>Master jewelers shape every piece with decades of expert heirloom expertise.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon"><i class="fas fa-shield-halved"></i></div>
+            <h3>Secure Lifetime Care</h3>
+            <p>Enjoy complimentary maintenance, polishing, and secure insured delivery worldwide.</p>
+        </div>
+    </section>
+
+    <!-- CUSTOMER REVIEWS SECTION -->
+    <section class="reviews-section" id="reviews">
+        <div class="section-header">
+            <h2>Loved By Connoisseurs</h2>
+            <p>Read honest reviews from customers who wear our heritage collection daily.</p>
+        </div>
+        <div class="reviews-grid">
+            <div class="review-card">
+                <div class="review-stars">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                </div>
+                <p class="review-text">"The smoked plum packaging combined with the unbelievable quality of the amethyst crown ring left me speechless. Truly a world-class boutique experience!"</p>
+                <div class="reviewer-info">
+                    <h4>Eleanor Vance</h4>
+                    <p>Verified Collector</p>
+                </div>
+            </div>
+
+            <div class="review-card">
+                <div class="review-stars">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                </div>
+                <p class="review-text">"Ordered the Oatstone Pearl Pendant for an anniversary. The delivery was fast, and the minimalist aesthetic is gorgeous. Will definitely order again!"</p>
+                <div class="reviewer-info">
+                    <h4>Marcus Sterling</h4>
+                    <p>Verified Buyer</p>
+                </div>
+            </div>
+
+            <div class="review-card">
+                <div class="review-stars">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                </div>
+                <p class="review-text">"The pistachio mint undertones in their presentation and the craftsmanship of the gold hoops make this my favorite jewelry store online."</p>
+                <div class="reviewer-info">
+                    <h4>Sophia Al-Mansoor</h4>
+                    <p>Fashion Editor</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <h3 style="font-size: 2.2rem; color: var(--oatstone); margin-bottom: 0.5rem; font-family: 'Cormorant Garamond', serif;">Aura & Amethyst</h3>
+        <p>Crafting timeless beauty in Smoked Plum (#5e435b), Oatstone, and Pistachio. All rights reserved &copy; 2026.</p>
+    </footer>
+
+
+    <!-- ================= MODALS ================= -->
+
+    <!-- 1. SIGNUP MODAL -->
+    <div id="modal-signup" class="modal-overlay">
+        <div class="modal-content">
+            <a href="#" class="modal-close"><i class="fas fa-times"></i></a>
+            <h2 style="color: var(--smoked-plum); margin-bottom: 0.5rem; font-size: 2rem;">Join the Inner Circle</h2>
+            <p style="color: #665564; font-size: 0.9rem; margin-bottom: 1.5rem;">Sign up to enjoy exclusive early access to new curated drops.</p>
+            <form>
+                <div class="form-group">
+                    <label class="form-label">Full Name</label>
+                    <input type="text" class="form-input" placeholder="Enter your name" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Email Address</label>
+                    <input type="email" class="form-input" placeholder="name@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <input type="password" class="form-input" placeholder="Create a secure password" required>
+                </div>
+                <button type="submit" class="btn-submit">Create Account</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 2. LOGIN MODAL -->
+    <div id="modal-login" class="modal-overlay">
+        <div class="modal-content">
+            <a href="#" class="modal-close"><i class="fas fa-times"></i></a>
+            <h2 style="color: var(--smoked-plum); margin-bottom: 0.5rem; font-size: 2rem;">Welcome Back</h2>
+            <p style="color: #665564; font-size: 0.9rem; margin-bottom: 1.5rem;">Sign in to access your saved wishlist and order history.</p>
+            <form>
+                <div class="form-group">
+                    <label class="form-label">Email Address</label>
+                    <input type="email" class="form-input" placeholder="name@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <input type="password" class="form-input" placeholder="Enter your password" required>
+                </div>
+                <button type="submit" class="btn-submit">Sign In</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 3. CART MODAL -->
+    <div id="modal-cart" class="modal-overlay">
+        <div class="cart-container">
+            <a href="#" class="modal-close"><i class="fas fa-times"></i></a>
+            <h2 style="color: var(--smoked-plum); margin-bottom: 1.5rem; font-size: 2rem;"><i class="fas fa-shopping-bag me-2"></i> Your Shopping Bag</h2>
+            
+            <div class="cart-item">
+                <div class="cart-item-info">
+                    <h4>Amethyst Crown Solitaire</h4>
+                    <p>Category: Rings | Price: $340.00</p>
+                </div>
+                <div class="quantity-controls">
+                    <a href="#" style="text-decoration: none; color: var(--smoked-plum);"><i class="fas fa-minus"></i></a>
+                    <span>1</span>
+                    <a href="#" style="text-decoration: none; color: var(--smoked-plum);"><i class="fas fa-plus"></i></a>
+                </div>
+                <a href="#" style="color: #b05555; font-size: 0.9rem;"><i class="fas fa-trash-alt"></i></a>
+            </div>
+
+            <div class="cart-item">
+                <div class="cart-item-info">
+                    <h4>Oatstone Pearl Pendant</h4>
+                    <p>Category: Necklaces | Price: $210.00</p>
+                </div>
+                <div class="quantity-controls">
+                    <a href="#" style="text-decoration: none; color: var(--smoked-plum);"><i class="fas fa-minus"></i></a>
+                    <span>1</span>
+                    <a href="#" style="text-decoration: none; color: var(--smoked-plum);"><i class="fas fa-plus"></i></a>
+                </div>
+                <a href="#" style="color: #b05555; font-size: 0.9rem;"><i class="fas fa-trash-alt"></i></a>
+            </div>
+
+            <div class="cart-summary">
+                <div>
+                    <p style="font-size: 0.85rem; color: #776174;">Subtotal Amount</p>
+                    <h3>$550.00</h3>
+                </div>
+                <a href="#modal-checkout" class="btn-primary" style="padding: 0.8rem 1.8rem;">Proceed to Checkout</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. CHECKOUT MODAL -->
+    <div id="modal-checkout" class="modal-overlay">
+        <div class="checkout-container">
+            <a href="#" class="modal-close"><i class="fas fa-times"></i></a>
+            <h2 style="color: var(--smoked-plum); margin-bottom: 1rem; font-size: 2rem;"><i class="fas fa-lock me-2"></i> Secure Checkout</h2>
+            <p style="color: #665564; font-size: 0.9rem; margin-bottom: 1.5rem;">Complete your order for exquisite handcrafted jewelry.</p>
+            
+            <form>
+                <h4 style="color: var(--smoked-plum); margin-bottom: 0.8rem; font-size: 1.1rem;">Shipping Address</h4>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div class="form-group">
+                        <label class="form-label">First Name</label>
+                        <input type="text" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Last Name</label>
+                        <input type="text" class="form-input" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Street Address</label>
+                    <input type="text" class="form-input" placeholder="123 Luxury Lane" required>
+                </div>
+                <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 1rem;">
+                    <div class="form-group">
+                        <label class="form-label">City</label>
+                        <input type="text" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Postal Code</label>
+                        <input type="text" class="form-input" required>
+                    </div>
+                </div>
+
+                <h4 style="color: var(--smoked-plum); margin: 1.5rem 0 0.8rem; font-size: 1.1rem;">Payment Method</h4>
+                <div class="form-group">
+                    <label class="form-label">Card Number</label>
+                    <input type="text" class="form-input" placeholder="4532 •••• •••• 8892" required>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div class="form-group">
+                        <label class="form-label">Expiry Date</label>
+                        <input type="text" class="form-input" placeholder="MM/YY" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">CVV Code</label>
+                        <input type="password" class="form-input" placeholder="123" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-submit" style="background: var(--pistachio); color: var(--text-dark); margin-top: 1.5rem;">Complete Secure Purchase ($550.00)</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>
