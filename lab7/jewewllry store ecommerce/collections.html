@@ -1,0 +1,1219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collections Showcase | Aura & Amethyst</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --smoked-plum: #5e435b;
+            --smoked-plum-rgb: 94, 67, 91;
+            --oatstone: #d7c8b2;
+            --pistachio: #b8c985;
+            --pistachio-dark: #9ab06b;
+            --bg-light: #fbf9f6;
+            --text-dark: #2c222b;
+            --white: #ffffff;
+            --shadow: 0 14px 35px rgba(94, 67, 91, 0.09);
+            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4, .brand-title {
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        /* --- STATE CONTROLS (CSS modals) --- */
+        #modal-signup:target,
+        #modal-login:target,
+        #modal-cart:target,
+        #modal-checkout:target {
+            display: flex;
+        }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(44, 34, 43, 0.65);
+            backdrop-filter: blur(6px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content, .cart-container, .checkout-container {
+            background: var(--white);
+            padding: 2.8rem;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 480px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            position: relative;
+            border: 1px solid rgba(215, 200, 178, 0.6);
+        }
+
+        .cart-container, .checkout-container {
+            max-width: 700px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1.2rem;
+            right: 1.5rem;
+            font-size: 1.1rem;
+            color: var(--smoked-plum);
+            text-decoration: none;
+            background: var(--bg-light);
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .modal-close:hover {
+            background: var(--smoked-plum);
+            color: var(--white);
+            transform: rotate(90deg);
+        }
+
+        /* --- NAVIGATION BAR --- */
+        .navbar {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(10px);
+            padding: 1.1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 900;
+            border-bottom: 1px solid rgba(215, 200, 178, 0.3);
+        }
+
+        .brand-logo {
+            font-size: 1.9rem;
+            font-weight: 700;
+            color: var(--smoked-plum);
+            text-decoration: none;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            font-size: 0.95rem;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: var(--smoked-plum);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after, .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--smoked-plum);
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn-icon {
+            text-decoration: none;
+            color: var(--smoked-plum);
+            background: var(--bg-light);
+            border: 1px solid var(--oatstone);
+            padding: 0.6rem 1.1rem;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            display: inline-flex;
+            gap: 0.5rem;
+            align-items: center;
+            transition: var(--transition);
+        }
+
+        .btn-icon:hover {
+            background: var(--smoked-plum);
+            color: var(--white);
+            border-color: var(--smoked-plum);
+            transform: translateY(-2px);
+        }
+
+        /* --- PAGE BANNER HEADER --- */
+        .page-header {
+            background: linear-gradient(135deg, rgba(94, 67, 91, 0.92), rgba(44, 34, 43, 0.95)), 
+                        url('https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+            color: var(--white);
+            padding: 5rem 5%;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 3.5rem;
+            color: var(--oatstone);
+            margin-bottom: 0.5rem;
+        }
+
+        .page-header p {
+            color: #f0ece6;
+            font-size: 1.1rem;
+        }
+
+        /* --- MAIN STORE CONTAINER & FILTERS --- */
+        .store-container {
+            max-width: 1400px;
+            margin: 3.5rem auto;
+            padding: 0 5%;
+        }
+
+        .filter-controls {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.8rem;
+            margin-bottom: 3.5rem;
+        }
+
+        .filter-btn {
+            background: var(--white);
+            border: 1px solid var(--oatstone);
+            padding: 0.65rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.9rem;
+            color: var(--smoked-plum);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--smoked-plum);
+            color: var(--white);
+            border-color: var(--smoked-plum);
+            transform: translateY(-2px);
+        }
+
+        /* --- PRODUCT GRID & CARDS --- */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2.2rem;
+        }
+
+        .product-card {
+            background: var(--white);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(215, 200, 178, 0.4);
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            transition: var(--transition);
+        }
+
+        .product-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 18px 40px rgba(94, 67, 91, 0.15);
+            border-color: var(--oatstone);
+        }
+
+        .product-img-wrapper {
+            position: relative;
+            width: 100%;
+            height: 290px;
+            overflow: hidden;
+            background: #f3efe9;
+        }
+
+        .product-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .product-card:hover .product-img-wrapper img {
+            transform: scale(1.07);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: var(--oatstone);
+            color: var(--text-dark);
+            padding: 0.3rem 0.8rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            border-radius: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .product-info {
+            padding: 1.6rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            justify-content: space-between;
+        }
+
+        .product-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.3rem;
+        }
+
+        .product-category {
+            font-size: 0.8rem;
+            color: #887285;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1.2rem;
+            border-top: 1px solid var(--bg-light);
+            padding-top: 1.1rem;
+        }
+
+        .product-price {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--smoked-plum);
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .btn-add-cart {
+            background: var(--smoked-plum);
+            color: var(--white);
+            border: none;
+            padding: 0.55rem 1.1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: var(--transition);
+        }
+
+        .btn-add-cart:hover {
+            background: var(--text-dark);
+            transform: scale(1.03);
+        }
+
+        /* --- CART & CHECKOUT STYLING --- */
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 0;
+            border-bottom: 1px solid var(--oatstone);
+        }
+
+        .cart-item-info h4 {
+            font-size: 1.15rem;
+            color: var(--text-dark);
+        }
+
+        .cart-item-info p {
+            color: #776174;
+            font-size: 0.9rem;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            background: var(--bg-light);
+            border: 1px solid var(--oatstone);
+            padding: 0.3rem 0.8rem;
+            border-radius: 8px;
+        }
+
+        .quantity-controls span {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .cart-summary {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 2px solid var(--smoked-plum);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cart-summary h3 {
+            font-size: 1.6rem;
+            color: var(--smoked-plum);
+        }
+
+        .btn-primary {
+            background: var(--pistachio);
+            color: var(--text-dark);
+            padding: 0.85rem 2.2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            display: inline-block;
+        }
+
+        .btn-primary:hover {
+            background: var(--pistachio-dark);
+        }
+
+        /* --- FORMS & INPUTS --- */
+        .form-group {
+            margin-bottom: 1.3rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.4rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--smoked-plum);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.85rem 1.1rem;
+            border: 1px solid var(--oatstone);
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            background: var(--bg-light);
+            transition: var(--transition);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--smoked-plum);
+            background: var(--white);
+            box-shadow: 0 0 0 3px rgba(94, 67, 91, 0.1);
+        }
+
+        .btn-submit {
+            width: 100%;
+            background: var(--smoked-plum);
+            color: var(--white);
+            border: none;
+            padding: 0.95rem;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 1rem;
+            font-size: 1rem;
+        }
+
+        .btn-submit:hover {
+            background: var(--text-dark);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background: var(--smoked-plum);
+            color: var(--oatstone);
+            padding: 4.5rem 5% 2.5rem;
+            text-align: center;
+            margin-top: 6rem;
+        }
+
+        footer p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-top: 1.5rem;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.97); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @media (max-width: 768px) {
+            .page-header h1 { font-size: 2.5rem; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVIGATION BAR -->
+    <nav class="navbar">
+        <a href="index.html" class="brand-logo"><i class="fas fa-gem" style="color: var(--pistachio-dark);"></i> Aura & Amethyst</a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="collections.html" class="active">Collections</a></li>
+            <li><a href="index.html#reviews">Reviews</a></li>
+            <li><a href="#modal-signup">Join Club</a></li>
+        </ul>
+        <div class="nav-actions">
+            <a href="#modal-login" class="btn-icon"><i class="fas fa-user"></i> Login</a>
+            <a href="#modal-cart" class="btn-icon" style="background: var(--smoked-plum); color: var(--white); border-color: var(--smoked-plum);">
+                <i class="fas fa-shopping-bag"></i> Cart <span style="background: var(--pistachio); color: var(--text-dark); padding: 1px 6px; border-radius: 10px; font-size: 0.75rem; font-weight: 700;">2</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- PAGE HEADER -->
+    <header class="page-header">
+        <h1>The Fine Jewelry Showcase</h1>
+        <p>Hand-selected masterpieces ranging from royal rings to intricate bridal necklaces.</p>
+    </header>
+
+    <!-- PRODUCT STORE & FILTER SECTION -->
+    <main class="store-container" id="store">
+        <!-- Filter Controls -->
+        <div class="filter-controls">
+            <a href="collections.html" class="filter-btn active">All Masterpieces</a>
+            <a href="collections.html" class="filter-btn">Rings</a>
+            <a href="collections.html" class="filter-btn">Necklaces</a>
+            <a href="collections.html" class="filter-btn">Earrings</a>
+            <a href="collections.html" class="filter-btn">Bracelets</a>
+            <a href="collections.html" class="filter-btn">Bridal Sets</a>
+            <a href="collections.html" class="filter-btn"><i class="fas fa-sort-amount-down"></i> Under $250</a>
+        </div>
+
+        <!-- PRODUCT GRID (All 30 Unique Items Included) -->
+        <div class="product-grid">
+
+            <!-- Item 1 -->
+            <div class="product-card">
+                <div class="product-img-wrapper">
+                    <span class="product-badge">Bestseller</span>
+                    <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=600&q=80" alt="Amethyst Solitaire Ring">
+                </div>
+                <div class="product-info">
+                    <div>
+                        <div class="product-category">Rings</div>
+                        <h3 class="product-title">Amethyst Crown Solitaire</h3>
+                    </div>
+                    <div class="product-footer">
+                        <span class="product-price">$340.00</span>
+                        <a href="#modal-cart" class="btn-add-cart"><i class="fas fa-plus"></i> Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 2 -->
+            <div class="product-card">
+                <div class="product-img-wrapper">
+                    <span class="product-badge">New</span>
+                    <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=600&q=80" alt="Pearl Drop Pendant">
+                </div>
+                <div class="product-info">
+                    <div>
+                        <div class="product-category">Necklaces</div>
+                        <h3 class="product-title">Oatstone Pearl Pendant</h3>
+                    </div>
+                    <div class="product-footer">
+                        <span class="product-price">$210.00</span>
+                        <a href="#modal-cart" class="btn-add-cart"><i class="fas fa-plus"></i> Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 3 -->
+            <div class="product-card">
+                <div class="product-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1630019852942-f89202989a59?auto=format&fit=crop&w=600&q=80" alt="Diamond Hoop Earrings">
+                </div>
+                <div class="product-info">
+                    <div>
+                        <div class="product-category">Earrings</div>
+                        <h3 class="product-title">Plum Enamel Gold Hoops</h3>
+                    </div>
+                    <div class="product-footer">
+                        <span class="product-price">$185.00</span>
+                        <a href="#modal-cart" class="btn-add-cart"><i class="fas fa-plus"></i> Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 4 -->
+            <div class="product-card">
+                <div class="product-img-wrapper">
+                    <span class="product-badge">Limited</span>
+                    <img src="https://i0.wp.com/alamara.pk/wp-content/uploads/2025/10/14k-gold-plated-petal-hand-chain-bracelet-detail.jpg?fit=1325%2C1340&ssl=1" alt="Gold Chain Bracelet">
+                </div>
+                <div class="product-info">
+                    <div>
+                        <div class="product-category">Bracelets</div>
+                        <h3 class="product-title">Serpent Gold Cuff</h3>
+                    </div>
+                    <div class="product-footer">
+                        <span class="product-price">$290.00</span>
+                        <a href="#modal-cart" class="btn-add-cart"><i class="fas fa-plus"></i> Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 5 -->
+            <div class="product-card">
+                <div class="product-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=600&q=80" alt="Bridal Diamond Choker">
+                </div>
+                <div class="product-info">
+                    <div>
+                        <div class="product-category">Bridal Sets</div>
+                        <h3 class="product-title">Royal Heirloom Choker</h3>
+                    </div>
+                    <div class="product-footer">
+                        <span class="product-price">$890.00</span>
+                        <a href="#modal-cart" class="btn-add-cart"><i class="fas fa-plus"></i> Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 6 -->
+            <div class="product-card">
+                <div class="product-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1603561591411-07134e71a2a9?auto=format&fit=crop&w=600&q=80" alt="Vintage Ruby Ring">
+                </div>
+                <div class="product-info">
+                    <div>
+                        <div class="product-category">Rings</div>
+                        <h3 class="product-title">Vintage Burgundy Ruby Ring</h3>
+                    </div>
+                    <div class="product-footer">
+                        <span class="product-price">$420.00</span>
+                        <a href="#modal-cart" class="btn-add-cart"><i class="fas fa-plus"></i> Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 7 -->
+            <div class="product-card">
+                <div class="product-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=600&q=80" alt="Layered Gold Necklace">
+                </div>
+                <div class="product-info">
+                    <div>
+                        <div class="product-category">Necklaces</div>
+                        <h3 class="product-title">Ethereal Layered Chain</h3>
+                    </div>
+                    <div class="product-footer">
+                        <span class="product-price">$260.00</span>
+                        <a href="#modal-cart" class="btn-add-cart"><i class="fas fa-plus"></i> Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 8 -->
+            <div class="product-card">
+                <div class="product-img-wrapper">
+                    <span class="product-badge">Sale</span>
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvr3JCOgMpH64sggefF3PbLxGzZ9KnmmxmKGzFizAvlQ&s=10" alt="Pistachio Jade Earrings">
+                </div>
+                <div class="product-info">
+                    <div>
+                        <div class="product-category">Earrings</div>
+                        <h3 class="product-title">Mint Jade Drop Earrings</h3>
+                    </div>
+                    <div class="product-footer">
+                        <span class="product-price">$150.00</span>
+                        <a href="#modal-cart" class="btn-add-cart"><i class="fas fa-plus"></i> Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 9 -->
+            <div class="product-card">
+                <div class="product-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1573408301185-9146fe634ad0?auto=format&fit=crop&w=600&q=80" alt="Sapphire Tennis Bracelet">
+                </div>
+                <div class="product-info">
+                    <div>
+                        <div class="product-category">Bracelets</div>
+                        <h3 class="product-title">Midnight Sapphire Tennis Band</h3>
+                    </div>
+                    <div class="product-footer">
+                        <span class="product-price">$540.00</span>
+                        <a href="#modal-cart" class="btn-add-cart"><i class="fas fa-plus"></i> Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 10 -->
+            <div class="product-card">
+                <div class="product-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=600&q=80" alt="Imperial Bridal Set">
+                </div>
+                <div class="product-info">
+                    <div>
+                        <div class="product-category">Bridal Sets</div>
+                        <h3 class="product-title">Imperial Wedding Set</h3>
+                    </div>
+                    <div class="product-footer">
+                        <span class="product-price">$1,250.00</span>
+                        <a href="#modal-cart" class="btn-add-cart"><i class="fas fa-plus"></i> Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 11 -->
+            <div class="product-card">
+                <div class="product-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=600&q=80" alt="Minimalist Band">
+                </div>
+                <div class="product-info">
+                    <div>
+                        <div class="product-category">Rings</div>
+                        <h3 class="product-title">Minimalist Smoked Gold Band</h3>
+                    </div>
+                    <div class="product-footer">
+                        <span class="product-price">$120.00</span>
+                        <a href="#modal-cart" class="btn-add-cart"><i class="fas fa-plus"></i> Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 12 -->
+            <div class="product-card">
+                <div class="product-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=600&q=80" alt="Choker Locket">
+                </div>
+                <div class="product-info">
+                    <div>
+                        <div class="product-category">Necklaces</div>
+                        <h3 class="product-title">Antique Heart Locket</h3>
+                    </div>
+                    <div class="product-footer">
+                        <span class="product-price">$230.00</span>
+                        <a href="#modal-cart" class="btn-add-cart"><i class="fas fa-plus"></i> Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 13 -->
+            <div class="product-card">
+                <div class="product-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1630019852942-f89202989a59?auto=format&fit=crop&w=600&q=80" alt="Stud Earrings">
+                </div>
+                <div class="product-info">
+                    <div>
+                        <div class="product-category">Earrings</div>
+                        <h3 class="product-title">Oatstone Crystal Studs</h3>
+                    </div>
+                    <div class="product-footer">
+                        <span class="product-price">$95.00</span>
+                        <a href="#modal-cart" class="btn-add-cart"><i class="fas fa-plus"></i> Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 14 -->
+            <div class="product-card">
+                <div class="product-img-wrapper">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDDiKqvZWYW73cEU2enAtO0YKtMQwikfJ7lAe03zWf3HTqRWk1D06Mf6-U&s=10" alt="Bangle Bracelet">
+                </div>
+                <div class="product-info">
+                    <div>
+                        <div class="product-category">Bracelets</div>
+                        <h3 class="product-title">Engraved Gold Bangle</h3>
+                    </div>
+                    <div class="product-footer">
+                        <span class="product-price">$215.00</span>
+                        <a href="#modal-cart" class="btn-add-cart"><i class="fas fa-plus"></i> Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 15 -->
+            <div class="product-card">
+                <div class="product-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=600&q=80" alt="Emerald Suite">
+                </div>
+                <div class="product-info">
+                    <div>
+                        <div class="product-category">Bridal Sets</div>
+                        <h3 class="product-title">Emerald Velvet Suite</h3>
+                    </div>
+                    <div class="product-footer">
+                        <span class="product-price">$980.00</span>
+                        <a href="#modal-cart" class="btn-add-cart"><i class="fas fa-plus"></i> Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 16 -->
+            <div class="product-card">
+                <div class="product-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1603561591411-07134e71a2a9?auto=format&fit=crop&w=600&q=80" alt="Cocktail Ring">
+                </div>
+                <div class="product-info">
+                    <div>
+                        <div class="product-category">Rings</div>
+                        <h3 class="product-title">Plum Blossom Cocktail Ring</h3>
+                    </div>
+                    <div class="product-footer">
+                        <span class="product-price">$310.00</span>
+                        <a href="#modal-cart" class="btn-add-cart"><i class="fas fa-plus"></i> Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 17 -->
+            <div class="product-card">
+                <div class="product-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=600&q=80" alt="Chandelier Pendant">
+                </div>
+                <div class="product-info">
+                    <div>
+                        <div class="product-category">Necklaces</div>
+                        <h3 class="product-title">Gilded Sunburst Pendant</h3>
+                    </div>
+                    <div class="product-footer">
+                        <span class="product-price">$275.00</span>
+                        <a href="#modal-cart" class="btn-add-cart"><i class="fas fa-plus"></i> Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 18 -->
+            <div class="product-card">
+                <div class="product-img-wrapper">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWpx-OgEejb2BDkBMyQNkVZsLMhZe59B7dDJvz36fcJc-yPv1y0rDixbM&s=10" alt="Drop Earrings">
+                </div>
+                <div class="product-info">
+                    <div>
+                        <div class="product-category">Earrings</div>
+                        <h3 class="product-title">Cascading Gold Droplets</h3>
+                    </div>
+                    <div class="product-footer">
+                        <span class="product-price">$165.00</span>
+                        <a href="#modal-cart" class="btn-add-cart"><i class="fas fa-plus"></i> Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 19 -->
+            <div class="product-card">
+                <div class="product-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1573408301185-9146fe634ad0?auto=format&fit=crop&w=600&q=80" alt="Charm Bracelet">
+                </div>
+                <div class="product-info">
+                    <div>
+                        <div class="product-category">Bracelets</div>
+                        <h3 class="product-title">Oatstone Charm Link</h3>
+                    </div>
+                    <div class="product-footer">
+                        <span class="product-price">$190.00</span>
+                        <a href="#modal-cart" class="btn-add-cart"><i class="fas fa-plus"></i> Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 20 -->
+            <div class="product-card">
+                <div class="product-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=600&q=80" alt="Crown Tiara">
+                </div>
+                <div class="product-info">
+                    <div>
+                        <div class="product-category">Bridal Sets</div>
+                        <h3 class="product-title">Smoked Plum Wedding Tiara</h3>
+                    </div>
+                    <div class="product-footer">
+                        <span class="product-price">$650.00</span>
+                        <a href="#modal-cart" class="btn-add-cart"><i class="fas fa-plus"></i> Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 21 -->
+            <div class="product-card">
+                <div class="product-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=600&q=80" alt="Stackable Ring">
+                </div>
+                <div class="product-info">
+                    <div>
+                        <div class="product-category">Rings</div>
+                        <h3 class="product-title">Trio Stackable Rings</h3>
+                    </div>
+                    <div class="product-footer">
+                        <span class="product-price">$175.00</span>
+                        <a href="#modal-cart" class="btn-add-cart"><i class="fas fa-plus"></i> Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 22 -->
+            <div class="product-card">
+                <div class="product-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=600&q=80" alt="Choker Chain">
+                </div>
+                <div class="product-info">
+                    <div>
+                        <div class="product-category">Necklaces</div>
+                        <h3 class="product-title">Pistachio Mint Beaded Choker</h3>
+                    </div>
+                    <div class="product-footer">
+                        <span class="product-price">$140.00</span>
+                        <a href="#modal-cart" class="btn-add-cart"><i class="fas fa-plus"></i> Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 23 -->
+            <div class="product-card">
+                <div class="product-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1630019852942-f89202989a59?auto=format&fit=crop&w=600&q=80" alt="Geometric Earrings">
+                </div>
+                <div class="product-info">
+                    <div>
+                        <div class="product-category">Earrings</div>
+                        <h3 class="product-title">Art Deco Geo Earrings</h3>
+                    </div>
+                    <div class="product-footer">
+                        <span class="product-price">$205.00</span>
+                        <a href="#modal-cart" class="btn-add-cart"><i class="fas fa-plus"></i> Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 24 -->
+            <div class="product-card">
+                <div class="product-img-wrapper">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_R3vMc8Drvkh7X36q59wNC9ZBx8oFJhdEjdIMxdR1p8qv5JVt25DLe-k&s=10" alt="Cuff Bracelet">
+                </div>
+                <div class="product-info">
+                    <div>
+                        <div class="product-category">Bracelets</div>
+                        <h3 class="product-title">Hammered Open Cuff</h3>
+                    </div>
+                    <div class="product-footer">
+                        <span class="product-price">$160.00</span>
+                        <a href="#modal-cart" class="btn-add-cart"><i class="fas fa-plus"></i> Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 25 -->
+            <div class="product-card">
+                <div class="product-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=600&q=80" alt="Gala Set">
+                </div>
+                <div class="product-info">
+                    <div>
+                        <div class="product-category">Bridal Sets</div>
+                        <h3 class="product-title">Gala Midnight Set</h3>
+                    </div>
+                    <div class="product-footer">
+                        <span class="product-price">$1,100.00</span>
+                        <a href="#modal-cart" class="btn-add-cart"><i class="fas fa-plus"></i> Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 26 -->
+            <div class="product-card">
+                <div class="product-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1603561591411-07134e71a2a9?auto=format&fit=crop&w=600&q=80" alt="Signet Ring">
+                </div>
+                <div class="product-info">
+                    <div>
+                        <div class="product-category">Rings</div>
+                        <h3 class="product-title">Classic Engraved Signet</h3>
+                    </div>
+                    <div class="product-footer">
+                        <span class="product-price">$240.00</span>
+                        <a href="#modal-cart" class="btn-add-cart"><i class="fas fa-plus"></i> Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 27 -->
+            <div class="product-card">
+                <div class="product-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=600&q=80" alt="Statement Pendant">
+                </div>
+                <div class="product-info">
+                    <div>
+                        <div class="product-category">Necklaces</div>
+                        <h3 class="product-title">Obsidian & Gold Drop</h3>
+                    </div>
+                    <div class="product-footer">
+                        <span class="product-price">$315.00</span>
+                        <a href="#modal-cart" class="btn-add-cart"><i class="fas fa-plus"></i> Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 28 -->
+            <div class="product-card">
+                <div class="product-img-wrapper">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRGEKOjYxHyARze-CiWomwnRQ8XPLNxtT02Vp33nPhhoYDMBGH7vHHwWXn&s=10" alt="Tassel Earrings">
+                </div>
+                <div class="product-info">
+                    <div>
+                        <div class="product-category">Earrings</div>
+                        <h3 class="product-title">Smoked Plum Tassel Fringe</h3>
+                    </div>
+                    <div class="product-footer">
+                        <span class="product-price">$195.00</span>
+                        <a href="#modal-cart" class="btn-add-cart"><i class="fas fa-plus"></i> Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 29 -->
+            <div class="product-card">
+                <div class="product-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1573408301185-9146fe634ad0?auto=format&fit=crop&w=600&q=80" alt="Bangle Set">
+                </div>
+                <div class="product-info">
+                    <div>
+                        <div class="product-category">Bracelets</div>
+                        <h3 class="product-title">Quartet Harmony Bangles</h3>
+                    </div>
+                    <div class="product-footer">
+                        <span class="product-price">$380.00</span>
+                        <a href="#modal-cart" class="btn-add-cart"><i class="fas fa-plus"></i> Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 30 -->
+            <div class="product-card">
+                <div class="product-img-wrapper">
+                    <span class="product-badge">Exclusive</span>
+                    <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=600&q=80" alt="Royal Wedding Set">
+                </div>
+                <div class="product-info">
+                    <div>
+                        <div class="product-category">Bridal Sets</div>
+                        <h3 class="product-title">Empress Royal Wedding Suite</h3>
+                    </div>
+                    <div class="product-footer">
+                        <span class="product-price">$1,450.00</span>
+                        <a href="#modal-cart" class="btn-add-cart"><i class="fas fa-plus"></i> Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <h3 style="font-size: 2.2rem; color: var(--oatstone); margin-bottom: 0.5rem; font-family: 'Cormorant Garamond', serif;">Aura & Amethyst</h3>
+        <p>Crafting timeless beauty in Smoked Plum (#5e435b), Oatstone, and Pistachio. All rights reserved &copy; 2026.</p>
+    </footer>
+
+
+    <!-- ================= MODALS ================= -->
+
+    <!-- 1. SIGNUP MODAL -->
+    <div id="modal-signup" class="modal-overlay">
+        <div class="modal-content">
+            <a href="#" class="modal-close"><i class="fas fa-times"></i></a>
+            <h2 style="color: var(--smoked-plum); margin-bottom: 0.5rem; font-size: 2rem;">Join the Inner Circle</h2>
+            <p style="color: #665564; font-size: 0.9rem; margin-bottom: 1.5rem;">Sign up to enjoy exclusive early access to new curated drops.</p>
+            <form>
+                <div class="form-group">
+                    <label class="form-label">Full Name</label>
+                    <input type="text" class="form-input" placeholder="Enter your name" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Email Address</label>
+                    <input type="email" class="form-input" placeholder="name@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <input type="password" class="form-input" placeholder="Create a secure password" required>
+                </div>
+                <button type="submit" class="btn-submit">Create Account</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 2. LOGIN MODAL -->
+    <div id="modal-login" class="modal-overlay">
+        <div class="modal-content">
+            <a href="#" class="modal-close"><i class="fas fa-times"></i></a>
+            <h2 style="color: var(--smoked-plum); margin-bottom: 0.5rem; font-size: 2rem;">Welcome Back</h2>
+            <p style="color: #665564; font-size: 0.9rem; margin-bottom: 1.5rem;">Sign in to access your saved wishlist and order history.</p>
+            <form>
+                <div class="form-group">
+                    <label class="form-label">Email Address</label>
+                    <input type="email" class="form-input" placeholder="name@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <input type="password" class="form-input" placeholder="Enter your password" required>
+                </div>
+                <button type="submit" class="btn-submit">Sign In</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 3. CART MODAL -->
+    <div id="modal-cart" class="modal-overlay">
+        <div class="cart-container">
+            <a href="#" class="modal-close"><i class="fas fa-times"></i></a>
+            <h2 style="color: var(--smoked-plum); margin-bottom: 1.5rem; font-size: 2rem;"><i class="fas fa-shopping-bag me-2"></i> Your Shopping Bag</h2>
+            
+            <div class="cart-item">
+                <div class="cart-item-info">
+                    <h4>Amethyst Crown Solitaire</h4>
+                    <p>Category: Rings | Price: $340.00</p>
+                </div>
+                <div class="quantity-controls">
+                    <a href="#" style="text-decoration: none; color: var(--smoked-plum);"><i class="fas fa-minus"></i></a>
+                    <span>1</span>
+                    <a href="#" style="text-decoration: none; color: var(--smoked-plum);"><i class="fas fa-plus"></i></a>
+                </div>
+                <a href="#" style="color: #b05555; font-size: 0.9rem;"><i class="fas fa-trash-alt"></i></a>
+            </div>
+
+            <div class="cart-item">
+                <div class="cart-item-info">
+                    <h4>Oatstone Pearl Pendant</h4>
+                    <p>Category: Necklaces | Price: $210.00</p>
+                </div>
+                <div class="quantity-controls">
+                    <a href="#" style="text-decoration: none; color: var(--smoked-plum);"><i class="fas fa-minus"></i></a>
+                    <span>1</span>
+                    <a href="#" style="text-decoration: none; color: var(--smoked-plum);"><i class="fas fa-plus"></i></a>
+                </div>
+                <a href="#" style="color: #b05555; font-size: 0.9rem;"><i class="fas fa-trash-alt"></i></a>
+            </div>
+
+            <div class="cart-summary">
+                <div>
+                    <p style="font-size: 0.85rem; color: #776174;">Subtotal Amount</p>
+                    <h3>$550.00</h3>
+                </div>
+                <a href="#modal-checkout" class="btn-primary" style="padding: 0.8rem 1.8rem;">Proceed to Checkout</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. CHECKOUT MODAL -->
+    <div id="modal-checkout" class="modal-overlay">
+        <div class="checkout-container">
+            <a href="#" class="modal-close"><i class="fas fa-times"></i></a>
+            <h2 style="color: var(--smoked-plum); margin-bottom: 1rem; font-size: 2rem;"><i class="fas fa-lock me-2"></i> Secure Checkout</h2>
+            <p style="color: #665564; font-size: 0.9rem; margin-bottom: 1.5rem;">Complete your order for exquisite handcrafted jewelry.</p>
+            
+            <form>
+                <h4 style="color: var(--smoked-plum); margin-bottom: 0.8rem; font-size: 1.1rem;">Shipping Address</h4>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div class="form-group">
+                        <label class="form-label">First Name</label>
+                        <input type="text" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Last Name</label>
+                        <input type="text" class="form-input" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Street Address</label>
+                    <input type="text" class="form-input" placeholder="123 Luxury Lane" required>
+                </div>
+                <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 1rem;">
+                    <div class="form-group">
+                        <label class="form-label">City</label>
+                        <input type="text" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Postal Code</label>
+                        <input type="text" class="form-input" required>
+                    </div>
+                </div>
+
+                <h4 style="color: var(--smoked-plum); margin: 1.5rem 0 0.8rem; font-size: 1.1rem;">Payment Method</h4>
+                <div class="form-group">
+                    <label class="form-label">Card Number</label>
+                    <input type="text" class="form-input" placeholder="4532 •••• •••• 8892" required>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div class="form-group">
+                        <label class="form-label">Expiry Date</label>
+                        <input type="text" class="form-input" placeholder="MM/YY" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">CVV Code</label>
+                        <input type="password" class="form-input" placeholder="123" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-submit" style="background: var(--pistachio); color: var(--text-dark); margin-top: 1.5rem;">Complete Secure Purchase ($550.00)</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>
